@@ -142,7 +142,7 @@ document.body.addEventListener("click", async (e) => {
     const currentAlamat = tr.querySelector(".cell-alamat").innerText;
 
     // Ubah text td menjadi kotak input ketik
-    tr.querySelector(".cell-asrama").innerHTML = `<input type="text" class="table-input input-asrama" value="${currentAsrama === '-' ? '' : currentAsrama}" placeholder="Kamar...">`;
+    tr.querySelector(".cell-asrama").innerHTML = `<input type="text" class="table-input input-asrama" value="${currentAsrama === '-' ? '' : currentAsrama}" placeholder="Kelas...">`;
     tr.querySelector(".cell-alamat").innerHTML = `<input type="text" class="table-input input-alamat" value="${currentAlamat === '-' ? '' : currentAlamat}" placeholder="Kota...">`;
 
     // Ubah tombol "Edit" menjadi tombol "Simpan"
