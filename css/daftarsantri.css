@@ -1,285 +1,475 @@
 /* =========================================================================
-   REVISI CSS: MODE CYBER-PONDOK (SERASI DENGAN GAMBAR)
-   ========================================================================= */
+   REVISI CSS: TEMA HIJAU PUTIH ELEGAN
+   TANPA UBAH STRUKTUR/FUNGSI
+========================================================================= */
 
 :root {
-    /* Warna tema gelap agar nyatu dengan BG gambar */
-    --cyber-bg-card: rgba(10, 10, 15, 0.8); /* Gelap transparan */
-    --cyber-text-main: #f0f0f0; /* Tulisan terang */
-    --cyber-text-muted: #888;
-    --cyber-border-muted: rgba(255, 255, 255, 0.1); /* Border tipis samar */
 
-    /* Warna aksen NEON serasi dengan laser di gambar */
-    --cyber-neon-blue: #00e5ff; /* Sesuai laser kiri */
-    --cyber-neon-pink: #ff00ff; /* Sesuai laser kanan */
-    --cyber-neon-glow-blue: 0 0 10px rgba(0, 229, 255, 0.5);
-    --cyber-neon-glow-pink: 0 0 10px rgba(255, 0, 255, 0.5);
-    
-    --radius-md: 4px; /* Sudut agak tajam agar techy */
-}
+    /* WARNA UTAMA */
+    --cyber-bg-card: rgba(255,255,255,0.78);
 
-/* Reset dasar agar tidak berantakan */
-#section-santri * {
-    box-sizing: border-box;
-    font-family: inherit; /* Ikut font header kamu */
-}
+    --cyber-text-main: #1c3328;
+    --cyber-text-muted: #6f857b;
 
-/* Pengaturan Card agar Rapi */
-.card {
-    background: var(--cyber-bg-card);
-    border: 1px solid var(--cyber-border-muted);
-    border-radius: var(--radius-md);
-    padding: 20px;
-    margin-bottom: 20px;
-    color: var(--cyber-text-main);
-    backdrop-filter: blur(5px); /* Efek kaca */
-}
+    --cyber-border-muted:
+      rgba(27,106,74,0.12);
 
-/* 1. Perbaikan Form Tambah Santri (Rapi Berjejer) */
-.form-title {
-    font-size: 1.1rem;
-    color: var(--cyber-neon-pink); /* Pakai aksen pink */
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
+    /* AKSEN HIJAU */
+    --cyber-neon-blue: #1b6a4a;
+    --cyber-neon-pink: #2d8b62;
 
-.grid-form {
-    display: grid;
-    /* Membuat form berjejer rapi di layar lebar, dan tumpuk di mobile */
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    align-items: flex-end;
-}
+    --cyber-neon-glow-blue:
+      0 0 14px rgba(27,106,74,0.18);
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
+    --cyber-neon-glow-pink:
+      0 0 14px rgba(45,139,98,0.18);
 
-.form-group label {
-    font-size: 0.8rem;
-    color: var(--cyber-text-muted);
-}
-
-/* Style Input/Select agar Nyatu dengan Cyberpunk */
-.form-group input,
-.form-group select {
-    width: 100%;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid var(--cyber-border-muted);
-    border-radius: var(--radius-md);
-    color: var(--cyber-text-main);
-    font-size: 0.9rem;
-    outline: none;
-    transition: 0.2s;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-    border-color: var(--cyber-neon-blue); /* Focus neon biru */
-    box-shadow: var(--cyber-neon-glow-blue);
-}
-
-.form-group select option {
-    background: #000; /* Dropdown tetap hitam */
-}
-
-/* Tombol Simpan Neon */
-.btn-submit {
-    background: none;
-    color: var(--cyber-neon-blue);
-    border: 1px solid var(--cyber-neon-blue);
-    border-radius: var(--radius-md);
-    padding: 10px 20px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: 0.2s;
-    height: 40px;
-}
-
-.btn-submit:hover {
-    background: var(--cyber-neon-blue);
-    color: #000;
-    box-shadow: var(--cyber-neon-glow-blue);
-}
-
-/* 2. Grid Pemisah Blok Putra & Putri (Rapi Berjejer Kiri-Kanan) */
-.santri-grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-}
-
-/* Blok Header Kelompok */
-.block-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid var(--cyber-border-muted);
-    padding-bottom: 10px;
-}
-
-.block-badge {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    font-weight: bold;
-    border: 1px solid;
-}
-
-/* Warna khusus Putra (Biru) */
-.badge-putra {
-    border-color: var(--cyber-neon-blue);
-    color: var(--cyber-neon-blue);
-    box-shadow: var(--cyber-neon-glow-blue);
-}
-
-.block-putra .block-info h4 {
-    color: var(--cyber-neon-blue);
-}
-
-/* Warna khusus Putri (Pink) */
-.badge-putri {
-    border-color: var(--cyber-neon-pink);
-    color: var(--cyber-neon-pink);
-    box-shadow: var(--cyber-neon-glow-pink);
-}
-
-.block-putri .block-info h4 {
-    color: var(--cyber-neon-pink);
-}
-
-.block-info h4 {
-    font-size: 1rem;
-    margin: 0;
-    text-transform: uppercase;
-}
-
-.total-count {
-    font-size: 0.75rem;
-    color: var(--cyber-text-muted);
-    margin: 0;
-}
-
-.total-count span {
-    font-weight: bold;
-    color: var(--cyber-text-main);
-}
-
-/* 3. Tampilan Tabel Cyber */
-.table-responsive {
-    width: 100%;
-    overflow-x: auto; /* Untuk mobile */
-}
-
-.santri-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-    font-size: 0.85rem;
-}
-
-.santri-table th {
-    padding: 10px;
-    color: var(--cyber-text-muted);
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    border-bottom: 2px solid var(--cyber-border-muted);
-}
-
-.santri-table td {
-    padding: 12px 10px;
-    border-bottom: 1px solid var(--cyber-border-muted);
-    color: var(--cyber-text-main);
-}
-
-.santri-table tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.03); /* Highlight samar saat hover */
-}
-
-/* Tombol Aksi Hapus di Tabel (Warna Merah Neon) */
-.btn-delete {
-    background: none;
-    border: 1px solid #ff4444;
-    color: #ff4444;
-    font-size: 0.7rem;
-    cursor: pointer;
-    padding: 2px 6px;
-    border-radius: 3px;
-    text-transform: uppercase;
-}
-
-.btn-delete:hover {
-    background-color: #ff4444;
-    color: #000;
-    box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
-}
-
-/* Utilitas Tambahan */
-.text-center { text-align: center; }
-.text-muted { color: var(--cyber-text-muted); }
-
-/* Hak Akses */
-.admin-only {
-    display: none !important; /* Disembunyikan dulu, nanti JS yang munculin */
+    --radius-md: 16px;
 }
 
 /* =========================================================================
-   PENYESUAIAN CSS: INPUT MASSAL + KOLOM ALAMAT
-   ========================================================================= */
+   RESET KHUSUS SECTION
+========================================================================= */
 
-/* Mengatur ulang grid form agar textarea dan input biasa seimbang */
-.grid-form {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 15px;
-    align-items: flex-end;
+#section-santri *{
+    box-sizing:border-box;
+    font-family:inherit;
 }
 
-/* Memaksa form-group khusus textarea agar memakan space lebih luas (2 kolom) di layar lebar */
-@media (min-width: 768px) {
-    .style-textarea {
-        grid-column: span 2;
+/* =========================================================================
+   CARD
+========================================================================= */
+
+.card{
+    background:var(--cyber-bg-card);
+
+    border:
+      1px solid rgba(255,255,255,0.5);
+
+    border-radius:24px;
+
+    padding:22px;
+
+    margin-bottom:20px;
+
+    color:var(--cyber-text-main);
+
+    backdrop-filter:blur(14px);
+
+    box-shadow:
+      0 10px 30px rgba(0,0,0,0.06);
+}
+
+/* =========================================================================
+   TITLE
+========================================================================= */
+
+.form-title{
+    font-size:1.05rem;
+
+    color:#1b6a4a;
+
+    margin-bottom:18px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+    font-weight:700;
+}
+
+/* =========================================================================
+   GRID FORM
+========================================================================= */
+
+.grid-form{
+    display:grid;
+
+    grid-template-columns:
+      repeat(auto-fit,minmax(180px,1fr));
+
+    gap:15px;
+
+    align-items:flex-end;
+}
+
+@media(min-width:768px){
+
+    .style-textarea{
+        grid-column:span 2;
     }
+
 }
 
-/* Style khusus untuk Textarea agar serasi dengan input lainnya */
-.form-group textarea {
-    width: 100%;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid var(--cyber-border-muted);
-    border-radius: var(--radius-md);
-    color: var(--cyber-text-main);
-    font-size: 0.9rem;
-    outline: none;
-    resize: none; /* Mematikan fungsi manual resize agar layout tidak rusak */
-    transition: 0.2s;
+/* =========================================================================
+   FORM GROUP
+========================================================================= */
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
 }
 
-.form-group textarea:focus {
-    border-color: var(--cyber-neon-blue);
-    box-shadow: var(--cyber-neon-glow-blue);
+.form-group label{
+    font-size:0.8rem;
+
+    color:#6f857b;
+
+    font-weight:600;
 }
 
-/* Menyesuaikan ulang lebar kolom tabel setelah ditambah kolom Alamat */
-.santri-table th, 
-.santri-table td {
-    padding: 12px 10px;
-    white-space: nowrap; /* Mencegah teks terpotong aneh di layar kecil */
+/* =========================================================================
+   INPUT + SELECT + TEXTAREA
+========================================================================= */
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+
+    padding:12px 14px;
+
+    background:
+      rgba(255,255,255,0.9);
+
+    border:
+      1px solid rgba(27,106,74,0.14);
+
+    border-radius:16px;
+
+    color:#1c3328;
+
+    font-size:0.9rem;
+
+    outline:none;
+
+    resize:none;
+
+    transition:0.25s ease;
 }
 
-/* Memberikan sedikit kelonggaran lebar pada kolom nama */
-.santri-table th:nth-child(1) {
-    width: 35%;
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+
+    border-color:#2d8b62;
+
+    box-shadow:
+      0 0 0 4px rgba(45,139,98,0.10);
+
+    background:#fff;
+}
+
+.form-group select option{
+    background:#fff;
+    color:#1c3328;
+}
+
+/* =========================================================================
+   BUTTON SUBMIT
+========================================================================= */
+
+.btn-submit{
+    background:
+      linear-gradient(
+        135deg,
+        #2d8b62,
+        #1b6a4a
+      );
+
+    color:#fff;
+
+    border:none;
+
+    border-radius:16px;
+
+    padding:12px 20px;
+
+    font-size:0.9rem;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    text-transform:uppercase;
+
+    transition:0.25s ease;
+
+    height:46px;
+
+    box-shadow:
+      0 10px 20px rgba(27,106,74,0.16);
+}
+
+.btn-submit:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+      0 14px 24px rgba(27,106,74,0.2);
+}
+
+/* =========================================================================
+   GRID PUTRA PUTRI
+========================================================================= */
+
+.santri-grid-container{
+    display:grid;
+
+    grid-template-columns:
+      repeat(auto-fit,minmax(320px,1fr));
+
+    gap:20px;
+}
+
+/* =========================================================================
+   BLOCK HEADER
+========================================================================= */
+
+.block-header{
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:18px;
+
+    border-bottom:
+      1px solid rgba(27,106,74,0.12);
+
+    padding-bottom:12px;
+}
+
+/* =========================================================================
+   BADGE
+========================================================================= */
+
+.block-badge{
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:1rem;
+    font-weight:700;
+
+    background:
+      rgba(45,139,98,0.08);
+
+    border:
+      1px solid rgba(45,139,98,0.18);
+}
+
+/* PUTRA */
+
+.badge-putra{
+    color:#1b6a4a;
+
+    box-shadow:
+      0 4px 10px rgba(27,106,74,0.08);
+}
+
+.block-putra .block-info h4{
+    color:#1b6a4a;
+}
+
+/* PUTRI */
+
+.badge-putri{
+    color:#2d8b62;
+
+    box-shadow:
+      0 4px 10px rgba(45,139,98,0.08);
+}
+
+.block-putri .block-info h4{
+    color:#2d8b62;
+}
+
+/* =========================================================================
+   BLOCK INFO
+========================================================================= */
+
+.block-info h4{
+    font-size:1rem;
+    margin:0;
+
+    text-transform:uppercase;
+
+    font-weight:700;
+}
+
+.total-count{
+    font-size:0.76rem;
+
+    color:#6f857b;
+
+    margin-top:3px;
+}
+
+.total-count span{
+    font-weight:700;
+
+    color:#1c3328;
+}
+
+/* =========================================================================
+   TABLE
+========================================================================= */
+
+.table-responsive{
+    width:100%;
+    overflow-x:auto;
+}
+
+.santri-table{
+    width:100%;
+
+    border-collapse:collapse;
+
+    text-align:left;
+
+    font-size:0.88rem;
+}
+
+/* =========================================================================
+   TABLE HEADER
+========================================================================= */
+
+.santri-table th{
+    padding:14px 12px;
+
+    color:#6f857b;
+
+    text-transform:uppercase;
+
+    font-size:0.73rem;
+
+    border-bottom:
+      2px solid rgba(27,106,74,0.10);
+
+    font-weight:700;
+
+    background:
+      rgba(45,139,98,0.04);
+}
+
+/* =========================================================================
+   TABLE BODY
+========================================================================= */
+
+.santri-table td{
+    padding:14px 12px;
+
+    border-bottom:
+      1px solid rgba(27,106,74,0.08);
+
+    color:#1c3328;
+}
+
+.santri-table tbody tr{
+    transition:0.2s ease;
+}
+
+.santri-table tbody tr:hover{
+    background:
+      rgba(45,139,98,0.05);
+}
+
+/* =========================================================================
+   BUTTON DELETE
+========================================================================= */
+
+.btn-delete{
+    background:none;
+
+    border:
+      1px solid #d9534f;
+
+    color:#d9534f;
+
+    font-size:0.72rem;
+
+    cursor:pointer;
+
+    padding:6px 10px;
+
+    border-radius:10px;
+
+    text-transform:uppercase;
+
+    font-weight:600;
+
+    transition:0.25s ease;
+}
+
+.btn-delete:hover{
+    background:#d9534f;
+
+    color:#fff;
+
+    transform:translateY(-1px);
+}
+
+/* =========================================================================
+   UTILITAS
+========================================================================= */
+
+.text-center{
+    text-align:center;
+}
+
+.text-muted{
+    color:#6f857b;
+}
+
+/* =========================================================================
+   ADMIN ONLY
+========================================================================= */
+
+.admin-only{
+    display:none !important;
+}
+
+/* =========================================================================
+   RESPONSIVE
+========================================================================= */
+
+@media(max-width:768px){
+
+    .grid-form{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:18px;
+        border-radius:20px;
+    }
+
+    .santri-table{
+        font-size:0.8rem;
+    }
+
+    .santri-table th,
+    .santri-table td{
+        padding:12px 10px;
+    }
+
+}
+
+/* =========================================================================
+   TABLE WIDTH
+========================================================================= */
+
+.santri-table th,
+.santri-table td{
+    white-space:nowrap;
+}
+
+.santri-table th:nth-child(1){
+    width:35%;
 }
