@@ -194,3 +194,29 @@ document.body.addEventListener("click", async (e) => {
     }
   }
 });
+
+// =========================================================================
+// 5. LOGIKA PERPINDAHAN MENU DASHBOARD (NAVIGASI SECTION)
+// =========================================================================
+const navButtons = document.querySelectorAll(".nav-btn");
+const sections = document.querySelectorAll(".section");
+
+navButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    // 1. Ambil target id section dari atribut data-section
+    const targetSectionId = `section-${btn.getAttribute("data-section")}`;
+    const targetSection = document.getElementById(targetSectionId);
+
+    if (targetSection) {
+      // 2. Hilangkan class 'active' dari semua tombol menu
+      navButtons.forEach((b) => b.classList.remove("active"));
+      
+      // 3. Hilangkan class 'active' dari semua section konten
+      sections.forEach((s) => s.classList.remove("active"));
+
+      // 4. Tambahkan kembali class 'active' ke tombol yang diklik dan section pasangannya
+      btn.classList.add("active");
+      targetSection.classList.add("active");
+    }
+  });
+});
