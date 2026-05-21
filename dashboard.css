@@ -441,36 +441,43 @@ body{
 }
 
 /* =========================================================================
-   INLINE EDIT DALAM TABEL
-   ========================================================================= */
+   INPUT EDIT TABLE
+========================================================================= */
 
 .santri-table input.table-input{
     width:100%;
-    padding:6px 10px;
+    padding:8px 12px;
 
-    background:rgba(0,0,0,0.7);
+    background:
+      rgba(255,255,255,0.9);
 
-    border:1px solid var(--cyber-border-muted);
+    border:
+      1px solid rgba(27,106,74,0.25);
 
-    border-radius:var(--radius-md);
+    border-radius:12px;
 
-    color:var(--cyber-text-main);
+    color:#1b3a2d;
 
     font-size:0.85rem;
+    font-weight:500;
 
     outline:none;
 
-    transition:all 0.2s ease;
+    transition:all 0.25s ease;
 }
 
 .santri-table input.table-input:focus{
-    border-color:var(--cyber-neon-pink);
-    box-shadow:var(--cyber-neon-glow-pink);
+    border-color:#2d8b62;
+
+    box-shadow:
+      0 0 0 4px rgba(45,139,98,0.12);
+
+    background:#fff;
 }
 
-/* =========================
-   ACTION BUTTON
-========================= */
+/* =========================================================================
+   ACTION BUTTON WRAP
+========================================================================= */
 
 .action-actions-wrap{
     display:flex;
@@ -479,50 +486,82 @@ body{
     align-items:center;
 }
 
+/* =========================================================================
+   BUTTON GLOBAL
+========================================================================= */
+
 .btn-edit,
 .btn-save{
     background:none;
 
-    font-size:0.75rem;
+    font-size:0.74rem;
 
     cursor:pointer;
 
-    padding:3px 8px;
+    padding:6px 12px;
 
-    border-radius:var(--radius-md);
+    border-radius:12px;
 
     text-transform:uppercase;
 
-    font-weight:600;
+    font-weight:700;
 
-    transition:all 0.2s ease;
+    transition:all 0.25s ease;
 }
 
+/* =========================================================================
+   BUTTON EDIT
+========================================================================= */
+
 .btn-edit{
-    border:1px solid var(--cyber-neon-blue);
-    color:var(--cyber-neon-blue);
+    border:
+      1px solid #1b6a4a;
+
+    color:#1b6a4a;
+
+    background:
+      rgba(255,255,255,0.7);
 }
 
 .btn-edit:hover{
-    background:var(--cyber-neon-blue);
-    color:#000;
-    box-shadow:var(--cyber-neon-glow-blue);
+    background:#1b6a4a;
+
+    color:#fff;
+
+    transform:translateY(-2px);
+
+    box-shadow:
+      0 8px 16px rgba(27,106,74,0.2);
 }
 
+/* =========================================================================
+   BUTTON SAVE
+========================================================================= */
+
 .btn-save{
-    border:1px solid #00ff66;
-    color:#00ff66;
+    border:
+      1px solid #2d8b62;
+
+    color:#fff;
+
+    background:
+      linear-gradient(
+        135deg,
+        #2d8b62,
+        #1b6a4a
+      );
 }
 
 .btn-save:hover{
-    background:#00ff66;
-    color:#000;
-    box-shadow:0 0 10px rgba(0,255,102,0.5);
+    transform:translateY(-2px);
+
+    box-shadow:
+      0 8px 16px rgba(45,139,98,0.25);
 }
 
-/* =========================
+/* =========================================================================
    GRID FORM
-========================= */
+========================================================================= */
 
 .grid-form{
     display:grid;
@@ -535,14 +574,19 @@ body{
     align-items:flex-end;
 }
 
-/* =========================
-   RESPONSIVE FORM
-========================= */
+/* =========================================================================
+   RESPONSIVE
+========================================================================= */
 
 @media(max-width:768px){
 
     .grid-form{
         grid-template-columns:1fr;
+    }
+
+    .btn-edit,
+    .btn-save{
+        width:100%;
     }
 
 }
