@@ -12,16 +12,17 @@ navBtns.forEach(btn => {
   });
 });
 
-import { db, auth } from "./firebase.js"; // Pastikan path ke file firebase.js Anda sudah benar
+import { db, auth } from "./firebase.js"; 
 import { 
   collection, 
   addDoc, 
   deleteDoc, 
   doc, 
   onSnapshot 
-} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
+// ... sisa kode dashboard.js yang kemarin jangan diubah, biarkan tetap di bawahnya ...
 // =========================================================================
 // 1. CEK STATUS LOGIN (ADMIN VS PENGUNJUNG)
 // =========================================================================
