@@ -1,219 +1,235 @@
 /* =========================================================================
-   VARIABLES & DESIGN SYSTEM (Sesuaikan dengan dashboard.css Anda)
+   REVISI CSS: MODE CYBER-PONDOK (SERASI DENGAN GAMBAR)
    ========================================================================= */
+
 :root {
-  --bg-cream: #FDFBF7;
-  --sage-green: #6B8E78;
-  --sage-light: #F1F4F1;
-  --sage-border: #E2E8E2;
-  --text-charcoal: #2D3732;
-  --text-muted: #718096;
-  --putra-color: #4A7A96;
-  --putra-light: #EEF4F8;
-  --putri-color: #A36A7B;
-  --putri-light: #FAF0F2;
-  --radius-lg: 16px;
-  --radius-md: 10px;
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+    /* Warna tema gelap agar nyatu dengan BG gambar */
+    --cyber-bg-card: rgba(10, 10, 15, 0.8); /* Gelap transparan */
+    --cyber-text-main: #f0f0f0; /* Tulisan terang */
+    --cyber-text-muted: #888;
+    --cyber-border-muted: rgba(255, 255, 255, 0.1); /* Border tipis samar */
+
+    /* Warna aksen NEON serasi dengan laser di gambar */
+    --cyber-neon-blue: #00e5ff; /* Sesuai laser kiri */
+    --cyber-neon-pink: #ff00ff; /* Sesuai laser kanan */
+    --cyber-neon-glow-blue: 0 0 10px rgba(0, 229, 255, 0.5);
+    --cyber-neon-glow-pink: 0 0 10px rgba(255, 0, 255, 0.5);
+    
+    --radius-md: 4px; /* Sudut agak tajam agar techy */
 }
 
-/* =========================================================================
-   STYLE UNTUK SECTION DATA SANTRI
-   ========================================================================= */
+/* Reset dasar agar tidak berantakan */
+#section-santri * {
+    box-sizing: border-box;
+    font-family: inherit; /* Ikut font header kamu */
+}
 
-/* Pengaturan Dasar Card */
+/* Pengaturan Card agar Rapi */
 .card {
-  background: #ffffff;
-  border: 1px solid var(--sage-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  padding: 24px;
-  margin-bottom: 24px;
+    background: var(--cyber-bg-card);
+    border: 1px solid var(--cyber-border-muted);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin-bottom: 20px;
+    color: var(--cyber-text-main);
+    backdrop-filter: blur(5px); /* Efek kaca */
 }
 
-/* 1. Form Tambah Santri (Khusus Admin) */
-.form-santri-box {
-  background: linear-gradient(to bottom right, #ffffff, var(--sage-light));
-}
-
+/* 1. Perbaikan Form Tambah Santri (Rapi Berjejer) */
 .form-title {
-  font-size: 1.15rem;
-  color: var(--text-charcoal);
-  margin-bottom: 16px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+    font-size: 1.1rem;
+    color: var(--cyber-neon-pink); /* Pakai aksen pink */
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .grid-form {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  align-items: flex-end;
+    display: grid;
+    /* Membuat form berjejer rapi di layar lebar, dan tumpuk di mobile */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    align-items: flex-end;
 }
 
 .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .form-group label {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--text-muted);
+    font-size: 0.8rem;
+    color: var(--cyber-text-muted);
 }
 
+/* Style Input/Select agar Nyatu dengan Cyberpunk */
 .form-group input,
 .form-group select {
-  width: 100%;
-  padding: 10px 14px;
-  border: 1px solid var(--sage-border);
-  border-radius: var(--radius-md);
-  font-size: 0.9rem;
-  color: var(--text-charcoal);
-  background-color: #ffffff;
-  outline: none;
-  transition: all 0.2s ease;
+    width: 100%;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--cyber-border-muted);
+    border-radius: var(--radius-md);
+    color: var(--cyber-text-main);
+    font-size: 0.9rem;
+    outline: none;
+    transition: 0.2s;
 }
 
 .form-group input:focus,
 .form-group select:focus {
-  border-color: var(--sage-green);
-  box-shadow: 0 0 0 3px rgba(107, 142, 120, 0.15);
+    border-color: var(--cyber-neon-blue); /* Focus neon biru */
+    box-shadow: var(--cyber-neon-glow-blue);
 }
 
+.form-group select option {
+    background: #000; /* Dropdown tetap hitam */
+}
+
+/* Tombol Simpan Neon */
 .btn-submit {
-  background-color: var(--sage-green);
-  color: #ffffff;
-  border: none;
-  border-radius: var(--radius-md);
-  padding: 12px 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  height: 42px;
+    background: none;
+    color: var(--cyber-neon-blue);
+    border: 1px solid var(--cyber-neon-blue);
+    border-radius: var(--radius-md);
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.2s;
+    height: 40px;
 }
 
 .btn-submit:hover {
-  background-color: #55725F;
+    background: var(--cyber-neon-blue);
+    color: #000;
+    box-shadow: var(--cyber-neon-glow-blue);
 }
 
-/* 2. Grid Pemisah Blok Putra & Putri (Mobile Friendly) */
+/* 2. Grid Pemisah Blok Putra & Putri (Rapi Berjejer Kiri-Kanan) */
 .santri-grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
 }
 
 /* Blok Header Kelompok */
 .block-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
-  border-b: 1px solid var(--sage-border);
-  padding-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--cyber-border-muted);
+    padding-bottom: 10px;
 }
 
 .block-badge {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  font-weight: bold;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: bold;
+    border: 1px solid;
 }
 
+/* Warna khusus Putra (Biru) */
 .badge-putra {
-  background-color: var(--putra-light);
-  color: var(--putra-color);
+    border-color: var(--cyber-neon-blue);
+    color: var(--cyber-neon-blue);
+    box-shadow: var(--cyber-neon-glow-blue);
 }
 
+.block-putra .block-info h4 {
+    color: var(--cyber-neon-blue);
+}
+
+/* Warna khusus Putri (Pink) */
 .badge-putri {
-  background-color: var(--putri-light);
-  color: var(--putri-color);
+    border-color: var(--cyber-neon-pink);
+    color: var(--cyber-neon-pink);
+    box-shadow: var(--cyber-neon-glow-pink);
+}
+
+.block-putri .block-info h4 {
+    color: var(--cyber-neon-pink);
 }
 
 .block-info h4 {
-  font-size: 1.1rem;
-  color: var(--text-charcoal);
-  margin: 0;
-  font-weight: 600;
+    font-size: 1rem;
+    margin: 0;
+    text-transform: uppercase;
 }
 
 .total-count {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin: 2px 0 0 0;
+    font-size: 0.75rem;
+    color: var(--cyber-text-muted);
+    margin: 0;
 }
 
 .total-count span {
-  font-weight: bold;
-  color: var(--text-charcoal);
+    font-weight: bold;
+    color: var(--cyber-text-main);
 }
 
-/* 3. Tampilan Tabel */
+/* 3. Tampilan Tabel Cyber */
 .table-responsive {
-  width: 100%;
-  overflow-x: auto;
+    width: 100%;
+    overflow-x: auto; /* Untuk mobile */
 }
 
 .santri-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  font-size: 0.9rem;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.85rem;
 }
 
 .santri-table th {
-  padding: 12px;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-muted);
-  border-bottom: 2px solid var(--sage-light);
-  font-weight: 600;
+    padding: 10px;
+    color: var(--cyber-text-muted);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    border-bottom: 2px solid var(--cyber-border-muted);
 }
 
 .santri-table td {
-  padding: 14px 12px;
-  border-bottom: 1px solid var(--sage-light);
-  color: var(--text-charcoal);
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--cyber-border-muted);
+    color: var(--cyber-text-main);
 }
 
 .santri-table tbody tr:hover {
-  background-color: rgba(241, 244, 241, 0.4);
+    background-color: rgba(255, 255, 255, 0.03); /* Highlight samar saat hover */
 }
 
-/* Tombol Aksi Delete/Hapus di Tabel */
+/* Tombol Aksi Hapus di Tabel (Warna Merah Neon) */
 .btn-delete {
-  background: none;
-  border: none;
-  color: #E53E3E;
-  font-size: 0.85rem;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 6px;
-  transition: background 0.2s ease;
+    background: none;
+    border: 1px solid #ff4444;
+    color: #ff4444;
+    font-size: 0.7rem;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 3px;
+    text-transform: uppercase;
 }
 
 .btn-delete:hover {
-  background-color: #FFF5F5;
+    background-color: #ff4444;
+    color: #000;
+    box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
 }
 
 /* Utilitas Tambahan */
 .text-center { text-align: center; }
-.text-muted { color: var(--text-muted); font-size: 0.85rem; }
+.text-muted { color: var(--cyber-text-muted); }
 
-/* =========================================================================
-   PROTEKSI HAK AKSES (GATEKEEPER)
-   ========================================================================= */
-/* Secara default, sembunyikan semua elemen admin-only di CSS. 
-   Nanti JavaScript yang akan memunculkannya (`display: block/flex/table-cell`) 
-   HANYA JIKA Firebase Auth mendeteksi user berhasil login. */
+/* Hak Akses */
 .admin-only {
-  display: none !important;
+    display: none !important; /* Disembunyikan dulu, nanti JS yang munculin */
 }
