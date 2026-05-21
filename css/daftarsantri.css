@@ -1,613 +1,142 @@
 /* =========================================================================
-   SECTION KHUSUS DATA SANTRI
-   TEMA HIJAU PUTIH ELEGAN
-   TANPA MENGUBAH STRUKTUR/FUNGSI
-========================================================================= */
+   STYLE MENU DATA SANTRI - TEMA GLASSMORPHISM SAGE GREEN
+   ========================================================================= */
 
-:root{
-
-    --santri-green-dark:#1b6a4a;
-    --santri-green:#2d8b62;
-
-    --santri-text:#1c3328;
-    --santri-muted:#6f857b;
-
-    --santri-border:
-      rgba(27,106,74,0.12);
-
-    --santri-card:
-      rgba(255,255,255,0.78);
-
+/* 1. Gaya Card Utama (Form & Tabel) agar Transparan */
+.card, .form-santri-box {
+    background: rgba(255, 255, 255, 0.12); /* Efek kaca transparan */
+    backdrop-filter: blur(12px); /* Membuat latar belakang blur */
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18); /* Garis tepi tipis transparan */
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 32px 0 rgba(0, 40, 20, 0.15); /* Bayangan lembut */
+    color: #ffffff;
 }
 
-/* =========================================================================
-   RESET KHUSUS SECTION
-========================================================================= */
-
-#section-santri *{
-    box-sizing:border-box;
-    font-family:inherit;
+/* 2. Judul Section / Form */
+.form-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 20px;
+    border-left: 4px solid #a3e635; /* Aksen hijau daun muda di samping judul */
+    padding-left: 10px;
 }
 
-/* =========================================================================
-   CARD
-========================================================================= */
-
-#section-santri .card{
-
-    background:var(--santri-card);
-
-    border:
-      1px solid rgba(255,255,255,0.5);
-
-    border-radius:24px;
-
-    padding:22px;
-
-    margin-bottom:20px;
-
-    color:var(--santri-text);
-
-    backdrop-filter:blur(14px);
-
-    box-shadow:
-      0 10px 30px rgba(0,0,0,0.06);
+/* 3. Gaya Input Form, Select, dan Textarea */
+.form-group label {
+    display: block;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    font-weight: 500;
 }
 
-/* =========================================================================
-   TITLE
-========================================================================= */
-
-#section-santri .form-title{
-
-    font-size:1.05rem;
-
-    color:var(--santri-green-dark);
-
-    margin-bottom:18px;
-
-    text-transform:uppercase;
-
-    letter-spacing:1px;
-
-    font-weight:700;
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
 }
 
-/* =========================================================================
-   GRID FORM
-========================================================================= */
-
-#section-santri .grid-form{
-
-    display:grid;
-
-    grid-template-columns:
-      repeat(auto-fit,minmax(180px,1fr));
-
-    gap:15px;
-
-    align-items:flex-end;
+/* Efek saat input diklik (Focus) */
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #a3e635; /* Berubah jadi hijau daun saat diklik */
+    box-shadow: 0 0 10px rgba(163, 230, 53, 0.25);
 }
 
-@media(min-width:768px){
-
-    #section-santri .style-textarea{
-        grid-column:span 2;
-    }
-
+/* Mengubah warna teks placeholder di dalam input */
+::placeholder {
+    color: rgba(255, 255, 255, 0.4);
 }
 
-/* =========================================================================
-   FORM GROUP
-========================================================================= */
-
-#section-santri .form-group{
-
-    display:flex;
-    flex-direction:column;
-
-    gap:7px;
+/* Mengubah warna opsi dropdown select agar terbaca */
+.form-group select option {
+    background: #1e3a27; /* Warna gelap sage agar teks putih kelihatan */
+    color: #ffffff;
 }
 
-#section-santri .form-group label{
-
-    font-size:0.8rem;
-
-    color:var(--santri-muted);
-
-    font-weight:600;
+/* 4. Tombol Submit (Tambah Santri) */
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #22c55e, #15803d); /* Gradasi hijau solid */
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.2);
 }
 
-/* =========================================================================
-   INPUT + SELECT + TEXTAREA
-========================================================================= */
-
-#section-santri .form-group input,
-#section-santri .form-group select,
-#section-santri .form-group textarea{
-
-    width:100%;
-
-    padding:12px 14px;
-
-    background:
-      rgba(255,255,255,0.92);
-
-    border:
-      1px solid rgba(27,106,74,0.14);
-
-    border-radius:16px;
-
-    color:var(--santri-text);
-
-    font-size:0.9rem;
-
-    outline:none;
-
-    resize:none;
-
-    transition:0.25s ease;
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+    filter: brightness(1.1);
 }
 
-#section-santri .form-group input:focus,
-#section-santri .form-group select:focus,
-#section-santri .form-group textarea:focus{
-
-    border-color:var(--santri-green);
-
-    box-shadow:
-      0 0 0 4px rgba(45,139,98,0.10);
-
-    background:#fff;
+/* 5. Desain Tabel Santri Modern */
+.table-responsive {
+    overflow-x: auto;
+    border-radius: 12px;
 }
 
-#section-santri .form-group select option{
-
-    background:#fff;
-    color:var(--santri-text);
+.santri-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
 }
 
-/* =========================================================================
-   BUTTON SUBMIT
-========================================================================= */
-
-#section-santri .btn-submit{
-
-    background:
-      linear-gradient(
-        135deg,
-        #2d8b62,
-        #1b6a4a
-      );
-
-    color:#fff;
-
-    border:none;
-
-    border-radius:16px;
-
-    padding:12px 20px;
-
-    font-size:0.9rem;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    text-transform:uppercase;
-
-    transition:0.25s ease;
-
-    height:46px;
-
-    box-shadow:
-      0 10px 20px rgba(27,106,74,0.16);
+/* Kepala Tabel (Header) */
+.santri-table th {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 14px 16px;
+    color: #ffffff;
+    font-weight: 600;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 
-#section-santri .btn-submit:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:
-      0 14px 24px rgba(27,106,74,0.2);
+/* Isi Baris Tabel */
+.santri-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.9);
 }
 
-/* =========================================================================
-   GRID PUTRA PUTRI
-========================================================================= */
-
-#section-santri .santri-grid-container{
-
-    display:grid;
-
-    grid-template-columns:
-      repeat(auto-fit,minmax(320px,1fr));
-
-    gap:20px;
+/* Efek Hover baris tabel saat dilewati mouse */
+.santri-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
 }
 
-/* =========================================================================
-   BLOCK HEADER
-========================================================================= */
-
-#section-santri .block-header{
-
-    display:flex;
-    align-items:center;
-
-    gap:12px;
-
-    margin-bottom:18px;
-
-    border-bottom:
-      1px solid rgba(27,106,74,0.12);
-
-    padding-bottom:12px;
+/* 6. Tombol Aksi (Hapus / Edit Langsung di Tabel) */
+.btn-delete {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.5);
+    color: #fca5a5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
 }
 
-/* =========================================================================
-   BADGE
-========================================================================= */
-
-#section-santri .block-badge{
-
-    width:40px;
-    height:40px;
-
-    border-radius:50%;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:1rem;
-    font-weight:700;
-
-    background:
-      rgba(45,139,98,0.08);
-
-    border:
-      1px solid rgba(45,139,98,0.18);
-}
-
-#section-santri .badge-putra{
-
-    color:#1b6a4a;
-
-    box-shadow:
-      0 4px 10px rgba(27,106,74,0.08);
-}
-
-#section-santri .badge-putri{
-
-    color:#2d8b62;
-
-    box-shadow:
-      0 4px 10px rgba(45,139,98,0.08);
-}
-
-#section-santri .block-info h4{
-
-    font-size:1rem;
-
-    margin:0;
-
-    text-transform:uppercase;
-
-    font-weight:700;
-}
-
-#section-santri .total-count{
-
-    font-size:0.76rem;
-
-    color:var(--santri-muted);
-
-    margin-top:3px;
-}
-
-#section-santri .total-count span{
-
-    font-weight:700;
-
-    color:var(--santri-text);
-}
-
-/* =========================================================================
-   TABLE WRAP
-========================================================================= */
-
-#section-santri .table-responsive{
-
-    width:100%;
-
-    overflow-x:auto;
-    overflow-y:hidden;
-
-    -webkit-overflow-scrolling:touch;
-
-    border-radius:18px;
-
-    scrollbar-width:thin;
-}
-
-/* SCROLLBAR */
-
-#section-santri .table-responsive::-webkit-scrollbar{
-
-    height:6px;
-}
-
-#section-santri .table-responsive::-webkit-scrollbar-thumb{
-
-    background:
-      rgba(27,106,74,0.35);
-
-    border-radius:20px;
-}
-
-#section-santri .table-responsive::-webkit-scrollbar-track{
-
-    background:
-      rgba(0,0,0,0.04);
-}
-
-/* =========================================================================
-   TABLE
-========================================================================= */
-
-#section-santri .santri-table{
-
-    width:100%;
-
-    min-width:700px;
-
-    border-collapse:collapse;
-
-    text-align:left;
-
-    font-size:0.88rem;
-}
-
-/* =========================================================================
-   TABLE HEADER
-========================================================================= */
-
-#section-santri .santri-table th{
-
-    padding:14px 12px;
-
-    color:var(--santri-muted);
-
-    text-transform:uppercase;
-
-    font-size:0.73rem;
-
-    border-bottom:
-      2px solid rgba(27,106,74,0.10);
-
-    font-weight:700;
-
-    background:
-      rgba(45,139,98,0.04);
-}
-
-/* =========================================================================
-   TABLE BODY
-========================================================================= */
-
-#section-santri .santri-table td{
-
-    padding:14px 12px;
-
-    border-bottom:
-      1px solid rgba(27,106,74,0.08);
-
-    color:var(--santri-text);
-
-    white-space:nowrap;
-}
-
-#section-santri .santri-table tbody tr{
-
-    transition:0.2s ease;
-}
-
-#section-santri .santri-table tbody tr:hover{
-
-    background:
-      rgba(45,139,98,0.05);
-}
-
-/* =========================================================================
-   INPUT INLINE EDIT
-========================================================================= */
-
-#section-santri .santri-table input.table-input{
-
-    width:100%;
-
-    padding:8px 12px;
-
-    background:
-      rgba(255,255,255,0.95);
-
-    border:
-      1px solid rgba(27,106,74,0.18);
-
-    border-radius:12px;
-
-    color:var(--santri-text);
-
-    font-size:0.85rem;
-
-    outline:none;
-
-    transition:0.25s ease;
-}
-
-#section-santri .santri-table input.table-input:focus{
-
-    border-color:var(--santri-green);
-
-    box-shadow:
-      0 0 0 4px rgba(45,139,98,0.10);
-}
-
-/* =========================================================================
-   ACTION BUTTONS
-========================================================================= */
-
-#section-santri .action-actions-wrap{
-
-    display:flex;
-
-    gap:8px;
-
-    justify-content:center;
-    align-items:center;
-}
-
-/* EDIT */
-
-#section-santri .btn-edit{
-
-    background:
-      rgba(255,255,255,0.8);
-
-    border:
-      1px solid #1b6a4a;
-
-    color:#1b6a4a;
-
-    font-size:0.74rem;
-
-    cursor:pointer;
-
-    padding:6px 12px;
-
-    border-radius:12px;
-
-    font-weight:700;
-
-    transition:0.25s ease;
-}
-
-#section-santri .btn-edit:hover{
-
-    background:#1b6a4a;
-
-    color:#fff;
-
-    transform:translateY(-2px);
-}
-
-/* SAVE */
-
-#section-santri .btn-save{
-
-    background:
-      linear-gradient(
-        135deg,
-        #2d8b62,
-        #1b6a4a
-      );
-
-    border:none;
-
-    color:#fff;
-
-    font-size:0.74rem;
-
-    cursor:pointer;
-
-    padding:6px 12px;
-
-    border-radius:12px;
-
-    font-weight:700;
-
-    transition:0.25s ease;
-}
-
-#section-santri .btn-save:hover{
-
-    transform:translateY(-2px);
-}
-
-/* DELETE */
-
-#section-santri .btn-delete{
-
-    background:none;
-
-    border:
-      1px solid #d9534f;
-
-    color:#d9534f;
-
-    font-size:0.72rem;
-
-    cursor:pointer;
-
-    padding:6px 10px;
-
-    border-radius:10px;
-
-    font-weight:600;
-
-    transition:0.25s ease;
-}
-
-#section-santri .btn-delete:hover{
-
-    background:#d9534f;
-
-    color:#fff;
-}
-
-/* =========================================================================
-   UTILITAS
-========================================================================= */
-
-#section-santri .text-center{
-    text-align:center;
-}
-
-#section-santri .text-muted{
-    color:var(--santri-muted);
-}
-
-/* =========================================================================
-   ADMIN ONLY
-========================================================================= */
-
-#section-santri .admin-only{
-    display:none !important;
-}
-
-/* =========================================================================
-   RESPONSIVE HP
-========================================================================= */
-
-@media(max-width:768px){
-
-    #section-santri .grid-form{
-        grid-template-columns:1fr;
-    }
-
-    #section-santri .card{
-        padding:18px;
-        border-radius:20px;
-    }
-
-    #section-santri .santri-table{
-        font-size:0.8rem;
-    }
-
-    #section-santri .santri-table th,
-    #section-santri .santri-table td{
-        padding:12px 10px;
-    }
-
+.btn-delete:hover {
+    background: #ef4444;
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
 }
