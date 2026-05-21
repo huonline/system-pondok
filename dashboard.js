@@ -1,17 +1,3 @@
-// NAV SWITCHING
-const navBtns = document.querySelectorAll('.nav-btn');
-const sections = document.querySelectorAll('.section');
-
-navBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    navBtns.forEach(b => b.classList.remove('active'));
-    sections.forEach(s => s.classList.remove('active'));
-    btn.classList.add('active');
-    const target = document.getElementById('section-' + btn.dataset.section);
-    if (target) target.classList.add('active');
-  });
-});
-
 import { db, auth } from "./firebase.js"; 
 import { 
   collection, 
@@ -22,7 +8,6 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-// ... sisa kode dashboard.js yang kemarin jangan diubah, biarkan tetap di bawahnya ...
 // =========================================================================
 // 1. CEK STATUS LOGIN (ADMIN VS PENGUNJUNG)
 // =========================================================================
@@ -32,10 +17,8 @@ onAuthStateChanged(auth, (user) => {
   const adminElements = document.querySelectorAll('.admin-only');
   
   if (user) {
-    // Jika user login (Admin)
     isAdmin = true;
     adminElements.forEach(el => {
-      // Kembalikan display sesuai tipe elemennya
       if (el.tagName === 'TR' || el.tagName === 'TD' || el.tagName === 'TH') {
         el.style.setProperty('display', 'table-cell', 'important');
       } else {
@@ -43,7 +26,6 @@ onAuthStateChanged(auth, (user) => {
       }
     });
   } else {
-    // Jika belum login (User Biasa)
     isAdmin = false;
     adminElements.forEach(el => {
       el.style.setProperty('display', 'none', 'important');
@@ -52,16 +34,14 @@ onAuthStateChanged(auth, (user) => {
 });
 
 // =========================================================================
-// 2. READ DATA: AMBIL DATA SANTRI REAL-TIME DARI FIRESTORE
+// 2. READ DATA: AMBIL DATA SANTRI REAL-TIME (TERMASUK ALAMAT)
 // =========================================================================
 const tbodyPutra = document.getElementById("list-santri-putra");
 const tbodyPutri = document.getElementById("list-santri-putri");
 const countPutra = document.getElementById("count-putra");
 const countPutri = document.getElementById("count-putri");
 
-// Hubungkan ke koleksi bernama "santri" di Firestore
 onSnapshot(collection(db, "santri"), (snapshot) => {
-  // Kosongkan tabel dulu setiap ada perubahan data
   tbodyPutra.innerHTML = "";
   tbodyPutri.innerHTML = "";
   
@@ -70,20 +50,20 @@ onSnapshot(collection(db, "santri"), (snapshot) => {
 
   snapshot.forEach((docSnap) => {
     const santri = docSnap.data();
-    const id = docSnap.id; // ID dokumen untuk keperluan hapus data
+    const id = docSnap.id;
 
-    // Baris HTML untuk tiap baris santri
+    // Baris HTML ditambah kolom Alamat (kolom ke-3)
     const rowHTML = `
       <tr>
         <td>${santri.nama}</td>
-        <td>${santri.kamar}</td>
+        <td>${santri.asrama}</td>
+        <td>${santri.alamat || "-"}</td>
         <td class="admin-only text-center" style="display: ${isAdmin ? 'table-cell' : 'none'} !important;">
           <button class="btn-delete" data-id="${id}">Hapus</button>
         </td>
       </tr>
     `;
 
-    // Filter otomatis berdasarkan gender/kategori
     if (santri.gender === "Putra") {
       tbodyPutra.insertAdjacentHTML("beforeend", rowHTML);
       totalPutra++;
@@ -93,21 +73,19 @@ onSnapshot(collection(db, "santri"), (snapshot) => {
     }
   });
 
-  // Update angka total santri di dashboard
   if(countPutra) countPutra.innerText = totalPutra;
   if(countPutri) countPutri.innerText = totalPutri;
 
-  // Jika data kosong, tampilkan pesan kosong
   if (totalPutra === 0) {
-    tbodyPutra.innerHTML = `<tr><td colspan="3" class="text-center text-muted">Belum ada data santri putra.</td></tr>`;
+    tbodyPutra.innerHTML = `<tr><td colspan="4" class="text-center text-muted">Belum ada data santri putra.</td></tr>`;
   }
   if (totalPutri === 0) {
-    tbodyPutri.innerHTML = `<tr><td colspan="3" class="text-center text-muted">Belum ada data santri putri.</td></tr>`;
+    tbodyPutri.innerHTML = `<tr><td colspan="4" class="text-center text-muted">Belum ada data santri putri.</td></tr>`;
   }
 });
 
 // =========================================================================
-// 3. WRITE DATA: TAMBAH DATA SANTRI (KHUSUS ADMIN)
+// 3. WRITE DATA: PROSES INPUT MASSAL (KHUSUS ADMIN)
 // =========================================================================
 const formTambah = document.getElementById("form-tambah-santri");
 
@@ -115,39 +93,51 @@ if (formTambah) {
   formTambah.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Ambil data dari input form HTML
-    const nama = document.getElementById("santri-nama").value;
+    // Ambil nilai input
+    const rawNames = document.getElementById("santri-nama").value;
     const gender = document.getElementById("santri-gender").value;
-    const kamar = document.getElementById("santri-kamar").value;
+    const asrama = document.getElementById("santri-asrama").value;
+    const alamat = document.getElementById("santri-alamat").value;
+
+    // Pecah teks berdasarkan baris baru, lalu bersihkan baris yang kosong atau hanya spasi
+    const namaList = rawNames
+      .split("\n")
+      .map(nama => nama.trim())
+      .filter(nama => nama.length > 0);
+
+    if (namaList.length === 0) return;
 
     try {
-      // Kirim data ke Firestore
-      await addDoc(collection(db, "santri"), {
-        nama: nama,
-        gender: gender,
-        kamar: kamar,
-        createdAt: new Date().toISOString() // opsional, untuk penanda waktu
+      // Jalankan penyimpanan ke Firebase secara bersamaan (Bulk Insert)
+      const uploadPromises = namaList.map(nama => {
+        return addDoc(collection(db, "santri"), {
+          nama: nama,
+          gender: gender,
+          asrama: asrama,
+          alamat: alamat,
+          createdAt: new Date().toISOString()
+        });
       });
 
-      // Reset form setelah berhasil input
+      await Promise.all(uploadPromises);
+
+      // Reset input form setelah semua data berhasil masuk
       formTambah.reset();
-      alert("Data santri berhasil disimpan!");
+      alert(`Berhasil menyimpan ${namaList.length} data santri secara massal!`);
     } catch (error) {
-      console.error("Gagal menambah data: ", error);
-      alert("Gagal menyimpan data, periksa koneksi atau hak akses database.");
+      console.error("Gagal menyimpan data massal: ", error);
+      alert("Terjadi kesalahan saat menyimpan data massal.");
     }
   });
 }
 
 // =========================================================================
-// 4. DELETE DATA: HAPUS DATA SANTRI (KHUSUS ADMIN)
+// 4. DELETE DATA: HAPUS SATU PER SATU (KHUSUS ADMIN)
 // =========================================================================
-// Menggunakan event delegation karena tombol hapus dibuat secara dinamis
 document.body.addEventListener("click", async (e) => {
   if (e.target.classList.contains("btn-delete")) {
     const id = e.target.getAttribute("data-id");
     
-    // Konfirmasi sebelum hapus
     if (confirm("Apakah Anda yakin ingin menghapus data santri ini?")) {
       try {
         await deleteDoc(doc(db, "santri", id));
