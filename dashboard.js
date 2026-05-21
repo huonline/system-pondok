@@ -3,6 +3,7 @@ import {
   collection, 
   addDoc, 
   deleteDoc, 
+  updateDoc,
   doc, 
   onSnapshot 
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -34,7 +35,7 @@ onAuthStateChanged(auth, (user) => {
 });
 
 // =========================================================================
-// 2. READ DATA: AMBIL DATA SANTRI REAL-TIME (TERMASUK ALAMAT)
+// 2. READ DATA: AMBIL DATA SANTRI REAL-TIME
 // =========================================================================
 const tbodyPutra = document.getElementById("list-santri-putra");
 const tbodyPutri = document.getElementById("list-santri-putri");
@@ -52,14 +53,17 @@ onSnapshot(collection(db, "santri"), (snapshot) => {
     const santri = docSnap.data();
     const id = docSnap.id;
 
-    // Baris HTML ditambah kolom Alamat (kolom ke-3)
+    // Setiap baris diberi ID unik (row-id) agar bisa dimanipulasi saat tombol edit diklik
     const rowHTML = `
-      <tr>
-        <td>${santri.nama}</td>
-        <td>${santri.asrama}</td>
-        <td>${santri.alamat || "-"}</td>
+      <tr id="row-${id}">
+        <td class="cell-nama">${santri.nama}</td>
+        <td class="cell-asrama">${santri.asrama || "-"}</td>
+        <td class="cell-alamat">${santri.alamat || "-"}</td>
         <td class="admin-only text-center" style="display: ${isAdmin ? 'table-cell' : 'none'} !important;">
-          <button class="btn-delete" data-id="${id}">Hapus</button>
+          <div class="action-actions-wrap">
+            <button class="btn-edit" data-id="${id}">Edit</button>
+            <button class="btn-delete" data-id="${id}">Hapus</button>
+          </div>
         </td>
       </tr>
     `;
@@ -85,7 +89,7 @@ onSnapshot(collection(db, "santri"), (snapshot) => {
 });
 
 // =========================================================================
-// 3. WRITE DATA: PROSES INPUT MASSAL (KHUSUS ADMIN)
+// 3. WRITE DATA: INPUT NAMA MASSAL (ASRAMA & ALAMAT DEFAULT SEBAGAI SEBELUMNYA "-")
 // =========================================================================
 const formTambah = document.getElementById("form-tambah-santri");
 
@@ -93,13 +97,9 @@ if (formTambah) {
   formTambah.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Ambil nilai input
     const rawNames = document.getElementById("santri-nama").value;
     const gender = document.getElementById("santri-gender").value;
-    const asrama = document.getElementById("santri-asrama").value;
-    const alamat = document.getElementById("santri-alamat").value;
 
-    // Pecah teks berdasarkan baris baru, lalu bersihkan baris yang kosong atau hanya spasi
     const namaList = rawNames
       .split("\n")
       .map(nama => nama.trim())
@@ -108,33 +108,78 @@ if (formTambah) {
     if (namaList.length === 0) return;
 
     try {
-      // Jalankan penyimpanan ke Firebase secara bersamaan (Bulk Insert)
       const uploadPromises = namaList.map(nama => {
         return addDoc(collection(db, "santri"), {
           nama: nama,
           gender: gender,
-          asrama: asrama,
-          alamat: alamat,
+          asrama: "-", // Nilai bawaan, nanti diedit di tabel
+          alamat: "-", // Nilai bawaan, nanti diedit di tabel
           createdAt: new Date().toISOString()
         });
       });
 
       await Promise.all(uploadPromises);
-
-      // Reset input form setelah semua data berhasil masuk
       formTambah.reset();
-      alert(`Berhasil menyimpan ${namaList.length} data santri secara massal!`);
+      alert(`Berhasil memasukkan ${namaList.length} nama santri! Silakan lengkapi asrama dan alamatnya langsung di tabel bawah.`);
     } catch (error) {
       console.error("Gagal menyimpan data massal: ", error);
-      alert("Terjadi kesalahan saat menyimpan data massal.");
+      alert("Terjadi kesalahan saat menyimpan data.");
     }
   });
 }
 
 // =========================================================================
-// 4. DELETE DATA: HAPUS SATU PER SATU (KHUSUS ADMIN)
+// 4. INLINE EDIT & UPDATE DATA (EDIT LANGSUNG DI TABEL)
 // =========================================================================
 document.body.addEventListener("click", async (e) => {
+  // AKSI 1: KETIKA TOMBOL EDIT DIKLIK
+  if (e.target.classList.contains("btn-edit")) {
+    const id = e.target.getAttribute("data-id");
+    const tr = document.getElementById(`row-${id}`);
+    
+    // Ambil teks asli yang ada di tabel saat ini
+    const currentAsrama = tr.querySelector(".cell-asrama").innerText;
+    const currentAlamat = tr.querySelector(".cell-alamat").innerText;
+
+    // Ubah text td menjadi kotak input ketik
+    tr.querySelector(".cell-asrama").innerHTML = `<input type="text" class="table-input input-asrama" value="${currentAsrama === '-' ? '' : currentAsrama}" placeholder="Kamar...">`;
+    tr.querySelector(".cell-alamat").innerHTML = `<input type="text" class="table-input input-alamat" value="${currentAlamat === '-' ? '' : currentAlamat}" placeholder="Kota...">`;
+
+    // Ubah tombol "Edit" menjadi tombol "Simpan"
+    const actionWrap = tr.querySelector(".action-actions-wrap");
+    actionWrap.innerHTML = `
+      <button class="btn-save" data-id="${id}">Simpan</button>
+      <button class="btn-delete" data-id="${id}">Hapus</button>
+    `;
+  }
+
+  // AKSI 2: KETIKA TOMBOL SIMPAN DIKLIK
+  if (e.target.classList.contains("btn-save")) {
+    const id = e.target.getAttribute("data-id");
+    const tr = document.getElementById(`row-${id}`);
+
+    // Ambil nilai baru dari kotak input
+    const newAsrama = tr.querySelector(".input-asrama").value.trim() || "-";
+    const newAlamat = tr.querySelector(".input-alamat").value.trim() || "-";
+
+    try {
+      // Update langsung ke dokumen Firestore berdasarkan ID santri tersebut
+      const docRef = doc(db, "santri", id);
+      await updateDoc(docRef, {
+        asrama: newAsrama,
+        alamat: newAlamat
+      });
+
+      alert("Data berhasil diperbarui!");
+      // Catatan: Tampilan tabel akan otomatis berubah kembali menjadi teks biasa 
+      // karena fungsi onSnapshot (Read Data) di atas mendeteksi perubahan data secara real-time.
+    } catch (error) {
+      console.error("Gagal memperbarui data: ", error);
+      alert("Gagal memperbarui data.");
+    }
+  }
+
+  // AKSI 3: HAPUS DATA SANTRI
   if (e.target.classList.contains("btn-delete")) {
     const id = e.target.getAttribute("data-id");
     
