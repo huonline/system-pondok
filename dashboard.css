@@ -439,7 +439,187 @@ body{
   }
 
 }
+/* =========================================================================
+   CSS UTUH: TEMA SOLID SAGE DARK & SCROLL MOBILE (UNTUK SEMUA MENU)
+   ========================================================================= */
 
+/* 1. Gaya Card Utama Semua Menu (Solid & Gelap, Kontras di Area Putih) */
+.card, .form-santri-box {
+    background: #14281d !important; /* Hijau tua pekat solid, anti tembus pandang */
+    border: 2px solid #22c55e !important; /* Garis tepi hijau tegas */
+    border-radius: 14px !important;
+    padding: 20px !important;
+    margin-bottom: 25px !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4) !important; /* Bayangan tebal */
+    color: #ffffff !important;
+}
+
+/* 2. Judul Setiap Form / Tabel */
+.form-title {
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    color: #a3e635 !important; /* Hijau stabilo tajam */
+    margin-bottom: 18px !important;
+    border-left: 4px solid #22c55e !important;
+    padding-left: 10px !important;
+}
+
+/* 3. Komponen Input Form, Select, dan Textarea (Semua Menu) */
+.form-group label {
+    display: block !important;
+    color: #e2e8f0 !important;
+    font-size: 0.9rem !important;
+    margin-bottom: 6px !important;
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100% !important;
+    padding: 10px 14px !important;
+    background: #1e3a27 !important; /* Background input solid */
+    border: 1px solid #4ade80 !important;
+    border-radius: 6px !important;
+    color: #ffffff !important;
+    font-size: 0.95rem !important;
+}
+
+/* Efek Klik Input */
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus {
+    outline: none !important;
+    border-color: #a3e635 !important;
+    box-shadow: 0 0 8px rgba(163, 230, 53, 0.4) !important;
+}
+
+/* Pilihan Dropdown Select */
+.form-group select option {
+    background: #14281d !important;
+    color: #ffffff !important;
+}
+
+/* 4. Semua Tombol Submit Utama */
+.btn-submit {
+    width: 100% !important;
+    padding: 12px !important;
+    background: #22c55e !important;
+    border: none !important;
+    border-radius: 6px !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: background 0.2s !important;
+}
+
+.btn-submit:hover {
+    background: #16a34a !important;
+}
+
+/* =========================================================================
+   SOLUSI MOBILE: FITUR SCROLL OTOMATIS UNTUK SEMUA TABEL
+   ========================================================================= */
+.table-responsive {
+    width: 100% !important;
+    overflow-x: auto !important; /* Scroll kanan-kiri aktif di HP */
+    max-height: 500px !important; 
+    overflow-y: auto !important; /* Scroll atas-bawah jika data menumpuk */
+    border: 1px solid #22c55e !important;
+    border-radius: 8px !important;
+    background: #14281d !important;
+}
+
+/* Pengaturan Dasar Semua Tabel */
+.santri-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    min-width: 750px !important; /* Memaksa tabel tetap lebar di HP agar tidak gepeng */
+    font-size: 0.9rem !important;
+}
+
+/* Header Tabel Tetap Mengambang di Atas (Sticky) saat di-scroll */
+.santri-table th {
+    position: sticky !important;
+    top: 0 !important;
+    background: #1e3a27 !important;
+    z-index: 2 !important;
+    padding: 12px !important;
+    color: #a3e635 !important;
+    font-weight: 600 !important;
+    border-bottom: 2px solid #22c55e !important;
+    text-align: left !important;
+}
+
+/* Isi Baris Tabel Semua Menu */
+.santri-table td {
+    padding: 12px !important;
+    border-bottom: 1px solid rgba(34, 197, 150, 0.2) !important;
+    color: #ffffff !important;
+    white-space: nowrap !important; /* Mencegah tulisan panjang terlipat ke bawah */
+}
+
+.santri-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.04) !important;
+}
+
+/* 5. Gaya Desain Batang Scrollbar (Tipis & Estetik) */
+.table-responsive::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.table-responsive::-webkit-scrollbar-track {
+    background: #14281d;
+}
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #22c55e;
+    border-radius: 10px;
+}
+
+/* =========================================================================
+   BADGE STATUS & TOMBOL AKSI KHUSUS (KEAMANAAN & PEMBAYARAN)
+   ========================================================================= */
+
+/* Tombol Aksi Umum (Hapus, Konfirmasi, Cetak) */
+.btn-delete {
+    background: rgba(239, 68, 68, 0.2) !important;
+    border: 1px solid rgba(239, 68, 68, 0.5) !important;
+    color: #fca5a5 !important;
+    padding: 5px 10px !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    font-size: 0.8rem !important;
+}
+.btn-delete:hover {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+}
+
+.btn-konfirmasi {
+    background: #22c55e !important;
+    color: #ffffff !important;
+    border: none !important;
+    padding: 5px 10px !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    font-size: 0.8rem !important;
+}
+
+/* Badge Status Keamanan & Keuangan */
+.status-badge {
+    padding: 4px 10px !important;
+    border-radius: 20px !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    display: inline-block !important;
+}
+
+.status-keluar { background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid #3b82f6; }
+.status-tepat, .status-lunas { background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid #22c55e; }
+.status-terlambat, .status-cicil { background: rgba(249, 115, 22, 0.2); color: #fdba74; border: 1px solid #f97316; }
+
+/* Warna Teks Denda & Tunggakan Keuangan */
+.text-denda, .text-tunggakan { color: #f87171 !important; font-weight: bold; }
+.text-aman, .text-pas { color: #94a3b8 !important; }
 
 
 /* =========================
