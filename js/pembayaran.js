@@ -89,17 +89,13 @@ onSnapshot(collection(db, "pembayaran"), (snapshot) => {
 
     const rowHTML = `
       <tr>
-        <td>**${bayar.nama}**</td>
-        <td>${bayar.kategori}</td>
-        <td class="text-center">${bayar.bulan || "-"}</td>
-        <td>${formatRupiah(bayar.tagihan)}</td>
-        <td>${formatRupiah(bayar.dibayar)}</td>
-        <td>${sisaTeks}</td>
-        <td class="text-center"><span class="status-badge ${badgeClass}">${bayar.status}</span></td>
-        <td>${formatTanggal(bayar.tanggalBayar)}</td>
-        <td class="admin-only text-center" style="display: ${isAdmin ? 'table-cell' : 'none'} !important;">
-          <button class="btn-delete-bayar btn-delete" data-id="${id}">Hapus</button>
-        </td>
+       // CARI BAGIAN INI DI DALAM SNAPSHOT KODE ROWHTML:
+<td class="admin-only text-center" style="display: ${isAdmin ? 'table-cell' : 'none'} !important;">
+  <div class="action-actions-wrap" style="display: flex; gap: 5px; justify-content: center;">
+    <button class="btn-cetak-bayar" data-id="${id}" style="background: none; border: 1px solid #00ff66; color: #00ff66; padding: 3px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem;">Cetak</button>
+    <button class="btn-delete-bayar btn-delete" data-id="${id}">Hapus</button>
+  </div>
+</td>
       </tr>
     `;
     tbodyBayar.insertAdjacentHTML("beforeend", rowHTML);
