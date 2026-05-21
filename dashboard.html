@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — Sistem Informasi Pondok</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+  <canvas id="cv"></canvas>
+
+  <!-- WRAPPER -->
+  <div class="dashboard-wrap">
+
+    <!-- HEADER -->
+    <header class="header">
+
+      <!-- LOGO + NAMA SISTEM -->
+      <div class="header-brand">
+        <div class="logo-box">
+          <img src="assets/logo.png" alt="Logo Pondok" class="logo-img" />
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">SISTEM INFORMASI</span>
+          <span class="brand-sub">Pondok Pesantren</span>
+        </div>
+      </div>
+
+      <!-- NAVIGASI MENU -->
+      <nav class="nav-menu">
+        <button class="nav-btn active" data-section="santri">
+          <span class="nav-icon">&#9632;</span>
+          Data Santri
+        </button>
+        <button class="nav-btn" data-section="keamanan">
+          <span class="nav-icon">&#9632;</span>
+          Keamanan
+        </button>
+        <button class="nav-btn" data-section="pembayaran">
+          <span class="nav-icon">&#9632;</span>
+          Pembayaran
+        </button>
+        <button class="nav-btn" data-section="absensi">
+          <span class="nav-icon">&#9632;</span>
+          Absensi
+        </button>
+      </nav>
+
+      <!-- PROFIL ADMIN -->
+      <div class="header-profile">
+        <span class="profile-name">Admin</span>
+        <div class="profile-avatar">AD</div>
+      </div>
+
+    </header>
+
+    <!-- DIVIDER -->
+    <div class="header-divider"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- SECTION: DATA SANTRI -->
+      <section class="section active" id="section-santri">
+        <!-- isi nanti -->
+      </section>
+
+      <!-- SECTION: KEAMANAN -->
+      <section class="section" id="section-keamanan">
+        <!-- isi nanti -->
+      </section>
+
+      <!-- SECTION: PEMBAYARAN -->
+      <section class="section" id="section-pembayaran">
+        <!-- isi nanti -->
+      </section>
+
+      <!-- SECTION: ABSENSI -->
+      <section class="section" id="section-absensi">
+        <!-- isi nanti -->
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="main.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
