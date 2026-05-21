@@ -1,142 +1,131 @@
 /* =========================================================================
-   STYLE MENU DATA SANTRI - TEMA GLASSMORPHISM SAGE GREEN
+   REVISI: STYLE MENU DATA SANTRI (SOLID, KONTRAS & SCROLL MOBILE)
    ========================================================================= */
 
-/* 1. Gaya Card Utama (Form & Tabel) agar Transparan */
+/* 1. Gaya Card Utama (Solid & Gelap agar tulisan putih super jelas) */
 .card, .form-santri-box {
-    background: rgba(255, 255, 255, 0.12); /* Efek kaca transparan */
-    backdrop-filter: blur(12px); /* Membuat latar belakang blur */
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.18); /* Garis tepi tipis transparan */
-    border-radius: 16px;
-    padding: 24px;
+    background: #14281d; /* Warna hijau tua solid (gelap), anti tembus pandang */
+    border: 2px solid #22c55e; /* Garis tepi hijau tegas */
+    border-radius: 14px;
+    padding: 20px;
     margin-bottom: 25px;
-    box-shadow: 0 8px 32px 0 rgba(0, 40, 20, 0.15); /* Bayangan lembut */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); /* Bayangan tebal agar kontras di area putih */
     color: #ffffff;
 }
 
-/* 2. Judul Section / Form */
+/* 2. Judul Form / Tabel */
 .form-title {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 20px;
-    border-left: 4px solid #a3e635; /* Aksen hijau daun muda di samping judul */
+    color: #a3e635; /* Warna hijau stabilo agar langsung terbaca */
+    margin-bottom: 18px;
+    border-left: 4px solid #22c55e;
     padding-left: 10px;
 }
 
-/* 3. Gaya Input Form, Select, dan Textarea */
+/* 3. Gaya Input Form (Solid & Bersih) */
 .form-group label {
     display: block;
-    color: rgba(255, 255, 255, 0.85);
+    color: #e2e8f0;
     font-size: 0.9rem;
-    margin-bottom: 8px;
-    font-weight: 500;
+    margin-bottom: 6px;
 }
 
 .form-group input, 
 .form-group select, 
 .form-group textarea {
     width: 100%;
-    padding: 12px 16px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    padding: 10px 14px;
+    background: #1e3a27; /* Input solid agak terang dari card */
+    border: 1px solid #4ade80;
+    border-radius: 6px;
     color: #ffffff;
     font-size: 0.95rem;
-    transition: all 0.3s ease;
 }
 
-/* Efek saat input diklik (Focus) */
+/* Fokus Input */
 .form-group input:focus, 
 .form-group select:focus, 
 .form-group textarea:focus {
     outline: none;
-    background: rgba(255, 255, 255, 0.15);
-    border-color: #a3e635; /* Berubah jadi hijau daun saat diklik */
-    box-shadow: 0 0 10px rgba(163, 230, 53, 0.25);
+    border-color: #a3e635;
+    box-shadow: 0 0 8px rgba(163, 230, 53, 0.4);
 }
 
-/* Mengubah warna teks placeholder di dalam input */
-::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-}
-
-/* Mengubah warna opsi dropdown select agar terbaca */
+/* Dropdown Select */
 .form-group select option {
-    background: #1e3a27; /* Warna gelap sage agar teks putih kelihatan */
+    background: #14281d;
     color: #ffffff;
 }
 
-/* 4. Tombol Submit (Tambah Santri) */
+/* 4. Tombol Kirim */
 .btn-submit {
     width: 100%;
     padding: 12px;
-    background: linear-gradient(135deg, #22c55e, #15803d); /* Gradasi hijau solid */
+    background: #22c55e;
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     color: #ffffff;
     font-weight: 600;
-    font-size: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.2);
+    transition: background 0.2s;
 }
 
 .btn-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
-    filter: brightness(1.1);
+    background: #16a34a;
 }
 
-/* 5. Desain Tabel Santri Modern */
+/* =========================================================================
+   SOLUSI HP: FITUR SCROLL OTOMATIS UNTUK TABEL
+   ========================================================================= */
 .table-responsive {
-    overflow-x: auto;
-    border-radius: 12px;
+    width: 100%;
+    overflow-x: auto; /* Memunculkan scroll geser kanan-kiri di HP */
+    overflow-y: hidden;
+    max-height: 500px; /* Batasi tinggi maksimum jika data terlalu banyak ke bawah */
+    overflow-y: auto; /* Memunculkan scroll atas-bawah jika baris tabel sangat panjang */
+    border: 1px solid #22c55e;
+    border-radius: 8px;
+    background: #14281d;
 }
 
+/* Desain Tabel di Dalamnya */
 .santri-table {
     width: 100%;
     border-collapse: collapse;
-    text-align: left;
-    font-size: 0.95rem;
+    min-width: 600px; /* MEMAKSA tabel tidak gepeng/mengecil di layar HP */
+    font-size: 0.9rem;
 }
 
-/* Kepala Tabel (Header) */
+/* Header Tabel Tetap di Atas Saat Di-scroll (Sticky Header) */
 .santri-table th {
-    background: rgba(255, 255, 255, 0.15);
-    padding: 14px 16px;
-    color: #ffffff;
+    position: sticky;
+    top: 0;
+    background: #1e3a27; /* Warna header solid */
+    z-index: 2;
+    padding: 12px;
+    color: #a3e635;
     font-weight: 600;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 2px solid #22c55e;
+    text-align: left;
 }
 
-/* Isi Baris Tabel */
 .santri-table td {
-    padding: 12px 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.9);
-}
-
-/* Efek Hover baris tabel saat dilewati mouse */
-.santri-table tbody tr:hover {
-    background: rgba(255, 255, 255, 0.05);
-}
-
-/* 6. Tombol Aksi (Hapus / Edit Langsung di Tabel) */
-.btn-delete {
-    background: rgba(239, 68, 68, 0.2);
-    border: 1px solid rgba(239, 68, 68, 0.5);
-    color: #fca5a5;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: all 0.2s;
-}
-
-.btn-delete:hover {
-    background: #ef4444;
+    padding: 12px;
+    border-bottom: 1px solid rgba(34, 197, 150, 0.2);
     color: #ffffff;
-    box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+    white-space: nowrap; /* Mencegah tulisan teks panjang terlipat jelek ke bawah */
+}
+
+/* Kustomisasi Desain Batang Scroll (Scrollbar) agar Terlihat Keren & Tipis */
+.table-responsive::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.table-responsive::-webkit-scrollbar-track {
+    background: #14281d;
+}
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #22c55e;
+    border-radius: 10px;
 }
