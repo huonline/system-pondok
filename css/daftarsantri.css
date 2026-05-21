@@ -1,0 +1,219 @@
+/* =========================================================================
+   VARIABLES & DESIGN SYSTEM (Sesuaikan dengan dashboard.css Anda)
+   ========================================================================= */
+:root {
+  --bg-cream: #FDFBF7;
+  --sage-green: #6B8E78;
+  --sage-light: #F1F4F1;
+  --sage-border: #E2E8E2;
+  --text-charcoal: #2D3732;
+  --text-muted: #718096;
+  --putra-color: #4A7A96;
+  --putra-light: #EEF4F8;
+  --putri-color: #A36A7B;
+  --putri-light: #FAF0F2;
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+/* =========================================================================
+   STYLE UNTUK SECTION DATA SANTRI
+   ========================================================================= */
+
+/* Pengaturan Dasar Card */
+.card {
+  background: #ffffff;
+  border: 1px solid var(--sage-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+/* 1. Form Tambah Santri (Khusus Admin) */
+.form-santri-box {
+  background: linear-gradient(to bottom right, #ffffff, var(--sage-light));
+}
+
+.form-title {
+  font-size: 1.15rem;
+  color: var(--text-charcoal);
+  margin-bottom: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.grid-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--sage-border);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  color: var(--text-charcoal);
+  background-color: #ffffff;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--sage-green);
+  box-shadow: 0 0 0 3px rgba(107, 142, 120, 0.15);
+}
+
+.btn-submit {
+  background-color: var(--sage-green);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 12px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  height: 42px;
+}
+
+.btn-submit:hover {
+  background-color: #55725F;
+}
+
+/* 2. Grid Pemisah Blok Putra & Putri (Mobile Friendly) */
+.santri-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+/* Blok Header Kelompok */
+.block-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  border-b: 1px solid var(--sage-border);
+  padding-bottom: 16px;
+}
+
+.block-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.badge-putra {
+  background-color: var(--putra-light);
+  color: var(--putra-color);
+}
+
+.badge-putri {
+  background-color: var(--putri-light);
+  color: var(--putri-color);
+}
+
+.block-info h4 {
+  font-size: 1.1rem;
+  color: var(--text-charcoal);
+  margin: 0;
+  font-weight: 600;
+}
+
+.total-count {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 2px 0 0 0;
+}
+
+.total-count span {
+  font-weight: bold;
+  color: var(--text-charcoal);
+}
+
+/* 3. Tampilan Tabel */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.santri-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.santri-table th {
+  padding: 12px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  border-bottom: 2px solid var(--sage-light);
+  font-weight: 600;
+}
+
+.santri-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--sage-light);
+  color: var(--text-charcoal);
+}
+
+.santri-table tbody tr:hover {
+  background-color: rgba(241, 244, 241, 0.4);
+}
+
+/* Tombol Aksi Delete/Hapus di Tabel */
+.btn-delete {
+  background: none;
+  border: none;
+  color: #E53E3E;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.btn-delete:hover {
+  background-color: #FFF5F5;
+}
+
+/* Utilitas Tambahan */
+.text-center { text-align: center; }
+.text-muted { color: var(--text-muted); font-size: 0.85rem; }
+
+/* =========================================================================
+   PROTEKSI HAK AKSES (GATEKEEPER)
+   ========================================================================= */
+/* Secara default, sembunyikan semua elemen admin-only di CSS. 
+   Nanti JavaScript yang akan memunculkannya (`display: block/flex/table-cell`) 
+   HANYA JIKA Firebase Auth mendeteksi user berhasil login. */
+.admin-only {
+  display: none !important;
+}
