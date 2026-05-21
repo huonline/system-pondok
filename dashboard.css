@@ -431,6 +431,34 @@ body{
   }
 
 }
+
+/* =========================
+   FIX CONTENT MENU
+========================= */
+
+/* semua section default disembunyikan */
+.content-section{
+  display:none;
+  width:100%;
+  animation:fade .3s ease;
+}
+
+/* section aktif tampil */
+.content-section.active{
+  display:block;
+}
+
+/* animasi */
+@keyframes fade{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
 /* =========================================================================
    PENYESUAIAN CSS: INLINE EDIT DALAM TABEL CYBER
    ========================================================================= */
