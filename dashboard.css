@@ -634,3 +634,37 @@ body{
 .section.active{
   display:block;
 }
+
+/* =========================================================================
+   FORCE FIX: MEMAKSA HALAMAN UTAMA BISA DI-SCROLL
+   ========================================================================= */
+
+/* Pastikan section dasar web tidak memotong isi konten */
+section, .section {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+/* Memastikan container dashboard utama mengizinkan halaman memanjang ke bawah */
+.main-content, .container, main, #dashboard-wrapper {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-y: auto !important;
+    padding-bottom: 60px !important; /* Jarak aman di bawah agar tidak mepet dasar layar */
+}
+
+/* Penyesuaian khusus untuk versi Mobile HP */
+@media (max-width: 768px) {
+    .card, .form-santri-box {
+        padding: 15px !important;
+        margin-left: 5px !important;
+        margin-right: 5px !important;
+    }
+    
+    /* Memastikan pembungkus tabel benar-benar memunculkan bar scroll di layar sentuh */
+    .table-responsive {
+        overflow-x: scroll !important;
+        -webkit-overflow-scrolling: touch !important; /* Menghaluskan scroll jari di iPhone/Android */
+    }
+}
