@@ -473,3 +473,36 @@
 .santri-table th:nth-child(1){
     width:35%;
 }
+
+/* =========================================================================
+   MOBILE TABLE SCROLL FIX
+========================================================================= */
+
+.table-responsive{
+    width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+
+    -webkit-overflow-scrolling:touch;
+
+    border-radius:18px;
+}
+
+/* lebar minimum tabel */
+.santri-table{
+    min-width:700px;
+}
+
+/* scrollbar halus */
+.table-responsive::-webkit-scrollbar{
+    height:6px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb{
+    background:rgba(27,106,74,0.35);
+    border-radius:20px;
+}
+
+.table-responsive::-webkit-scrollbar-track{
+    background:rgba(0,0,0,0.04);
+}
