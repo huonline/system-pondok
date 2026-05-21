@@ -546,3 +546,17 @@ body{
     }
 
 }
+
+
+/* =========================
+   FIX NAVIGATION SECTION
+========================= */
+
+.section{
+  display:none;
+  width:100%;
+}
+
+.section.active{
+  display:block;
+}
