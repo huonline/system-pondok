@@ -1,4 +1,6 @@
-/* CSS */
+/* =========================
+   RESET
+========================= */
 
 *{
   margin:0;
@@ -10,10 +12,19 @@
   --green-dark:#0f3d2e;
   --green:#1b6a4a;
   --green-light:#2d8b62;
+
   --white:#ffffff;
   --soft:#f4f8f5;
-  --text:#1d2b24;
+
+  --text:#1f2d26;
+
+  --shadow:
+    0 10px 30px rgba(0,0,0,0.08);
 }
+
+/* =========================
+   BODY
+========================= */
 
 body{
   font-family:'Inter',sans-serif;
@@ -34,7 +45,10 @@ body{
     );
 }
 
-/* GRID */
+/* =========================
+   BG GRID
+========================= */
+
 .bg-grid{
   position:fixed;
   inset:0;
@@ -48,7 +62,10 @@ body{
   background-size:40px 40px;
 }
 
-/* CANVAS */
+/* =========================
+   CANVAS
+========================= */
+
 #cv{
   position:fixed;
   inset:0;
@@ -59,64 +76,91 @@ body{
   pointer-events:none;
 }
 
-/* WRAP */
+/* =========================
+   WRAP
+========================= */
+
 .dashboard-wrap{
   position:relative;
   z-index:2;
+
   width:100%;
   min-height:100vh;
-  padding:20px;
+
+  padding:18px;
+
   display:flex;
   flex-direction:column;
 }
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
+
 .header{
   width:100%;
+
   display:flex;
   flex-direction:column;
   gap:18px;
 
   padding:22px;
-  border-radius:28px;
 
-  background:rgba(255,255,255,0.08);
+  border-radius:30px;
+
+  background:
+    rgba(255,255,255,0.08);
+
   backdrop-filter:blur(14px);
 
-  border:1px solid rgba(255,255,255,0.12);
+  border:
+    1px solid rgba(255,255,255,0.12);
 
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.08);
+  box-shadow:var(--shadow);
 }
 
-/* TOP */
+/* =========================
+   TOP HEADER
+========================= */
+
 .header-top{
   width:100%;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   gap:20px;
   flex-wrap:wrap;
 }
 
-/* BRAND */
+/* =========================
+   BRAND
+========================= */
+
 .header-brand{
   display:flex;
   align-items:center;
   gap:16px;
 }
 
-/* LOGO */
+/* =========================
+   LOGO
+========================= */
+
 .logo-box{
   width:72px;
   height:72px;
+
   border-radius:22px;
   overflow:hidden;
   flex-shrink:0;
 
-  background:rgba(255,255,255,0.12);
+  background:
+    rgba(255,255,255,0.12);
 
-  border:1px solid rgba(255,255,255,0.15);
+  border:
+    1px solid rgba(255,255,255,0.15);
 }
 
 .logo-img{
@@ -125,7 +169,10 @@ body{
   object-fit:cover;
 }
 
-/* BRAND TEXT */
+/* =========================
+   BRAND TEXT
+========================= */
+
 .brand-text{
   display:flex;
   flex-direction:column;
@@ -133,29 +180,38 @@ body{
 }
 
 .brand-title{
-  color:#fff;
   font-size:1.2rem;
   font-weight:700;
   letter-spacing:.5px;
+
+  color:#fff;
 }
 
 .brand-sub{
-  color:rgba(255,255,255,0.75);
   font-size:.92rem;
+
+  color:
+    rgba(255,255,255,0.75);
 }
 
-/* PROFILE */
+/* =========================
+   PROFILE
+========================= */
+
 .header-profile{
   display:flex;
   align-items:center;
   gap:14px;
 
   padding:10px 14px;
+
   border-radius:16px;
 
-  background:rgba(255,255,255,0.08);
+  background:
+    rgba(255,255,255,0.08);
 
-  border:1px solid rgba(255,255,255,0.12);
+  border:
+    1px solid rgba(255,255,255,0.12);
 }
 
 .profile-name{
@@ -166,14 +222,17 @@ body{
 .profile-avatar{
   width:42px;
   height:42px;
+
   border-radius:50%;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
-  color:#fff;
+  font-size:.9rem;
   font-weight:700;
+
+  color:#fff;
 
   background:
     linear-gradient(
@@ -183,43 +242,58 @@ body{
     );
 }
 
-/* NAV */
+/* =========================
+   NAV
+========================= */
+
 .header-nav{
   width:100%;
 }
 
+/* =========================
+   MENU SELALU KESAMPING
+========================= */
+
 .nav-menu{
   width:100%;
-  display:flex;
-  gap:16px;
-  flex-wrap:wrap;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:14px;
 }
 
-/* BUTTON */
+/* =========================
+   BUTTON
+========================= */
+
 .nav-btn{
-  flex:1 1 180px;
-  min-width:160px;
+  width:100%;
 
   display:flex;
   align-items:center;
   justify-content:center;
   gap:10px;
 
-  padding:16px 18px;
+  padding:16px 12px;
 
   border:none;
   border-radius:18px;
 
   cursor:pointer;
 
-  font-size:.95rem;
+  font-size:.92rem;
   font-weight:600;
 
   color:#fff;
 
-  background:rgba(255,255,255,0.08);
+  background:
+    rgba(255,255,255,0.08);
 
-  border:1px solid rgba(255,255,255,0.1);
+  border:
+    1px solid rgba(255,255,255,0.1);
 
   transition:.3s ease;
 }
@@ -227,7 +301,8 @@ body{
 .nav-btn:hover{
   transform:translateY(-3px);
 
-  background:rgba(255,255,255,0.14);
+  background:
+    rgba(255,255,255,0.14);
 }
 
 .nav-btn.active{
@@ -243,13 +318,17 @@ body{
 }
 
 .nav-icon{
-  font-size:.7rem;
+  font-size:.65rem;
 }
 
-/* DIVIDER */
+/* =========================
+   DIVIDER
+========================= */
+
 .header-divider{
   width:100%;
   height:1px;
+
   margin:24px 0;
 
   background:
@@ -261,42 +340,23 @@ body{
     );
 }
 
-/* MAIN */
+/* =========================
+   MAIN CONTENT
+========================= */
+
 .main-content{
   width:100%;
   flex:1;
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(auto-fit,minmax(260px,1fr));
-
-  gap:24px;
 }
 
-/* CARD */
-.content-card{
-  min-height:220px;
+/* =========================
+   MOBILE
+========================= */
 
-  border-radius:28px;
-
-  background:rgba(255,255,255,0.78);
-
-  backdrop-filter:blur(12px);
-
-  border:1px solid rgba(255,255,255,0.6);
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.08);
-
-  padding:24px;
-}
-
-/* RESPONSIVE */
 @media(max-width:768px){
 
   .dashboard-wrap{
-    padding:14px;
+    padding:12px;
   }
 
   .header{
@@ -305,7 +365,7 @@ body{
   }
 
   .header-top{
-    align-items:flex-start;
+    gap:14px;
   }
 
   .header-brand{
@@ -317,13 +377,26 @@ body{
     justify-content:space-between;
   }
 
+  /* TETAP KESAMPING */
   .nav-menu{
-    flex-direction:column;
+    grid-template-columns:
+      repeat(4,1fr);
+
+    gap:8px;
   }
 
   .nav-btn{
-    width:100%;
-    justify-content:flex-start;
+    padding:12px 6px;
+
+    font-size:.72rem;
+
+    border-radius:14px;
+
+    gap:6px;
+  }
+
+  .nav-icon{
+    font-size:.5rem;
   }
 
   .brand-title{
@@ -331,7 +404,30 @@ body{
   }
 
   .brand-sub{
-    font-size:.84rem;
+    font-size:.8rem;
+  }
+
+}
+
+/* =========================
+   HP KECIL
+========================= */
+
+@media(max-width:480px){
+
+  .nav-btn{
+    font-size:.66rem;
+    padding:11px 4px;
+  }
+
+  .profile-avatar{
+    width:38px;
+    height:38px;
+  }
+
+  .logo-box{
+    width:62px;
+    height:62px;
   }
 
 }
