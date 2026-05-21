@@ -220,3 +220,33 @@ navButtons.forEach((btn) => {
     }
   });
 });
+
+
+// =========================================================================
+// FITUR LOG OUT ADMIN
+// =========================================================================
+import { signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+// Cari elemen lingkaran avatar profil di kanan atas
+const tombolLogOut = document.querySelector(".profile-avatar");
+
+if (tombolLogOut) {
+  // Ubah kursor mouse menjadi telunjuk saat mengarah ke avatar biar ketahuan bisa diklik
+  tombolLogOut.style.cursor = "pointer";
+  tombolLogOut.setAttribute("title", "Klik untuk Keluar dari Admin");
+
+  // Aksi ketika lingkaran profil diklik
+  tombolLogOut.addEventListener("click", () => {
+    if (confirm("Apakah Anda yakin ingin keluar dari akun Admin?")) {
+      signOut(auth)
+        .then(() => {
+          alert("Anda telah keluar. Halaman akan dimuat ulang ke mode Umum.");
+          window.location.reload(); // Reload halaman untuk membersihkan sisa data admin
+        })
+        .catch((error) => {
+          console.error("Gagal Log Out: ", error);
+          alert("Terjadi kesalahan saat mencoba keluar.");
+        });
+    }
+  });
+}
