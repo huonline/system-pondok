@@ -1,7 +1,4 @@
-// GANTI BARIS PERTAMA MENJADI SEPERTI INI (Pakai titik dua kali)
 import { db, auth } from "../firebase.js"; 
-
-// Kode di bawahnya (import gstatic, cek login, dll) biarkan TETAP SAMA seperti sebelumnya
 import { 
   collection, 
   addDoc, 
@@ -10,16 +7,18 @@ import {
   doc, 
   onSnapshot 
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-// ... dan seterusnya sampai bawah ...
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-// =========================================================================
-// 1. CEK STATUS LOGIN ADMIN (AGAR TOMBOL AKSI MUNCUL)
-// =========================================================================
+// KODE BARU UNTUK CEK APAKAH FILE INI JALAN
+console.log("File keamanan.js berhasil dimuat dan terhubung!");
+
 let isAdmin = false;
 
 onAuthStateChanged(auth, (user) => {
+  console.log("Status Auth Berubah. User ditemukan:", user ? "Ya" : "Tidak");
   const adminElements = document.querySelectorAll('.admin-only');
   
+  // Biarkan kode di bawah ini tetap sama...
   if (user) {
     isAdmin = true;
     adminElements.forEach(el => {
