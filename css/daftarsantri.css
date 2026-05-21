@@ -1,30 +1,23 @@
 /* =========================================================================
-   REVISI CSS: TEMA HIJAU PUTIH ELEGAN
-   TANPA UBAH STRUKTUR/FUNGSI
+   SECTION KHUSUS DATA SANTRI
+   TEMA HIJAU PUTIH ELEGAN
+   TANPA MENGUBAH STRUKTUR/FUNGSI
 ========================================================================= */
 
-:root {
+:root{
 
-    /* WARNA UTAMA */
-    --cyber-bg-card: rgba(255,255,255,0.78);
+    --santri-green-dark:#1b6a4a;
+    --santri-green:#2d8b62;
 
-    --cyber-text-main: #1c3328;
-    --cyber-text-muted: #6f857b;
+    --santri-text:#1c3328;
+    --santri-muted:#6f857b;
 
-    --cyber-border-muted:
+    --santri-border:
       rgba(27,106,74,0.12);
 
-    /* AKSEN HIJAU */
-    --cyber-neon-blue: #1b6a4a;
-    --cyber-neon-pink: #2d8b62;
+    --santri-card:
+      rgba(255,255,255,0.78);
 
-    --cyber-neon-glow-blue:
-      0 0 14px rgba(27,106,74,0.18);
-
-    --cyber-neon-glow-pink:
-      0 0 14px rgba(45,139,98,0.18);
-
-    --radius-md: 16px;
 }
 
 /* =========================================================================
@@ -40,8 +33,9 @@
    CARD
 ========================================================================= */
 
-.card{
-    background:var(--cyber-bg-card);
+#section-santri .card{
+
+    background:var(--santri-card);
 
     border:
       1px solid rgba(255,255,255,0.5);
@@ -52,7 +46,7 @@
 
     margin-bottom:20px;
 
-    color:var(--cyber-text-main);
+    color:var(--santri-text);
 
     backdrop-filter:blur(14px);
 
@@ -64,10 +58,11 @@
    TITLE
 ========================================================================= */
 
-.form-title{
+#section-santri .form-title{
+
     font-size:1.05rem;
 
-    color:#1b6a4a;
+    color:var(--santri-green-dark);
 
     margin-bottom:18px;
 
@@ -82,7 +77,8 @@
    GRID FORM
 ========================================================================= */
 
-.grid-form{
+#section-santri .grid-form{
+
     display:grid;
 
     grid-template-columns:
@@ -95,7 +91,7 @@
 
 @media(min-width:768px){
 
-    .style-textarea{
+    #section-santri .style-textarea{
         grid-column:span 2;
     }
 
@@ -105,16 +101,19 @@
    FORM GROUP
 ========================================================================= */
 
-.form-group{
+#section-santri .form-group{
+
     display:flex;
     flex-direction:column;
+
     gap:7px;
 }
 
-.form-group label{
+#section-santri .form-group label{
+
     font-size:0.8rem;
 
-    color:#6f857b;
+    color:var(--santri-muted);
 
     font-weight:600;
 }
@@ -123,22 +122,23 @@
    INPUT + SELECT + TEXTAREA
 ========================================================================= */
 
-.form-group input,
-.form-group select,
-.form-group textarea{
+#section-santri .form-group input,
+#section-santri .form-group select,
+#section-santri .form-group textarea{
+
     width:100%;
 
     padding:12px 14px;
 
     background:
-      rgba(255,255,255,0.9);
+      rgba(255,255,255,0.92);
 
     border:
       1px solid rgba(27,106,74,0.14);
 
     border-radius:16px;
 
-    color:#1c3328;
+    color:var(--santri-text);
 
     font-size:0.9rem;
 
@@ -149,11 +149,11 @@
     transition:0.25s ease;
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus{
+#section-santri .form-group input:focus,
+#section-santri .form-group select:focus,
+#section-santri .form-group textarea:focus{
 
-    border-color:#2d8b62;
+    border-color:var(--santri-green);
 
     box-shadow:
       0 0 0 4px rgba(45,139,98,0.10);
@@ -161,16 +161,18 @@
     background:#fff;
 }
 
-.form-group select option{
+#section-santri .form-group select option{
+
     background:#fff;
-    color:#1c3328;
+    color:var(--santri-text);
 }
 
 /* =========================================================================
    BUTTON SUBMIT
 ========================================================================= */
 
-.btn-submit{
+#section-santri .btn-submit{
+
     background:
       linear-gradient(
         135deg,
@@ -202,7 +204,8 @@
       0 10px 20px rgba(27,106,74,0.16);
 }
 
-.btn-submit:hover{
+#section-santri .btn-submit:hover{
+
     transform:translateY(-2px);
 
     box-shadow:
@@ -213,7 +216,8 @@
    GRID PUTRA PUTRI
 ========================================================================= */
 
-.santri-grid-container{
+#section-santri .santri-grid-container{
+
     display:grid;
 
     grid-template-columns:
@@ -226,7 +230,8 @@
    BLOCK HEADER
 ========================================================================= */
 
-.block-header{
+#section-santri .block-header{
+
     display:flex;
     align-items:center;
 
@@ -244,7 +249,8 @@
    BADGE
 ========================================================================= */
 
-.block-badge{
+#section-santri .block-badge{
+
     width:40px;
     height:40px;
 
@@ -264,38 +270,26 @@
       1px solid rgba(45,139,98,0.18);
 }
 
-/* PUTRA */
+#section-santri .badge-putra{
 
-.badge-putra{
     color:#1b6a4a;
 
     box-shadow:
       0 4px 10px rgba(27,106,74,0.08);
 }
 
-.block-putra .block-info h4{
-    color:#1b6a4a;
-}
+#section-santri .badge-putri{
 
-/* PUTRI */
-
-.badge-putri{
     color:#2d8b62;
 
     box-shadow:
       0 4px 10px rgba(45,139,98,0.08);
 }
 
-.block-putri .block-info h4{
-    color:#2d8b62;
-}
+#section-santri .block-info h4{
 
-/* =========================================================================
-   BLOCK INFO
-========================================================================= */
-
-.block-info h4{
     font-size:1rem;
+
     margin:0;
 
     text-transform:uppercase;
@@ -303,31 +297,70 @@
     font-weight:700;
 }
 
-.total-count{
+#section-santri .total-count{
+
     font-size:0.76rem;
 
-    color:#6f857b;
+    color:var(--santri-muted);
 
     margin-top:3px;
 }
 
-.total-count span{
+#section-santri .total-count span{
+
     font-weight:700;
 
-    color:#1c3328;
+    color:var(--santri-text);
+}
+
+/* =========================================================================
+   TABLE WRAP
+========================================================================= */
+
+#section-santri .table-responsive{
+
+    width:100%;
+
+    overflow-x:auto;
+    overflow-y:hidden;
+
+    -webkit-overflow-scrolling:touch;
+
+    border-radius:18px;
+
+    scrollbar-width:thin;
+}
+
+/* SCROLLBAR */
+
+#section-santri .table-responsive::-webkit-scrollbar{
+
+    height:6px;
+}
+
+#section-santri .table-responsive::-webkit-scrollbar-thumb{
+
+    background:
+      rgba(27,106,74,0.35);
+
+    border-radius:20px;
+}
+
+#section-santri .table-responsive::-webkit-scrollbar-track{
+
+    background:
+      rgba(0,0,0,0.04);
 }
 
 /* =========================================================================
    TABLE
 ========================================================================= */
 
-.table-responsive{
-    width:100%;
-    overflow-x:auto;
-}
+#section-santri .santri-table{
 
-.santri-table{
     width:100%;
+
+    min-width:700px;
 
     border-collapse:collapse;
 
@@ -340,10 +373,11 @@
    TABLE HEADER
 ========================================================================= */
 
-.santri-table th{
+#section-santri .santri-table th{
+
     padding:14px 12px;
 
-    color:#6f857b;
+    color:var(--santri-muted);
 
     text-transform:uppercase;
 
@@ -362,29 +396,149 @@
    TABLE BODY
 ========================================================================= */
 
-.santri-table td{
+#section-santri .santri-table td{
+
     padding:14px 12px;
 
     border-bottom:
       1px solid rgba(27,106,74,0.08);
 
-    color:#1c3328;
+    color:var(--santri-text);
+
+    white-space:nowrap;
 }
 
-.santri-table tbody tr{
+#section-santri .santri-table tbody tr{
+
     transition:0.2s ease;
 }
 
-.santri-table tbody tr:hover{
+#section-santri .santri-table tbody tr:hover{
+
     background:
       rgba(45,139,98,0.05);
 }
 
 /* =========================================================================
-   BUTTON DELETE
+   INPUT INLINE EDIT
 ========================================================================= */
 
-.btn-delete{
+#section-santri .santri-table input.table-input{
+
+    width:100%;
+
+    padding:8px 12px;
+
+    background:
+      rgba(255,255,255,0.95);
+
+    border:
+      1px solid rgba(27,106,74,0.18);
+
+    border-radius:12px;
+
+    color:var(--santri-text);
+
+    font-size:0.85rem;
+
+    outline:none;
+
+    transition:0.25s ease;
+}
+
+#section-santri .santri-table input.table-input:focus{
+
+    border-color:var(--santri-green);
+
+    box-shadow:
+      0 0 0 4px rgba(45,139,98,0.10);
+}
+
+/* =========================================================================
+   ACTION BUTTONS
+========================================================================= */
+
+#section-santri .action-actions-wrap{
+
+    display:flex;
+
+    gap:8px;
+
+    justify-content:center;
+    align-items:center;
+}
+
+/* EDIT */
+
+#section-santri .btn-edit{
+
+    background:
+      rgba(255,255,255,0.8);
+
+    border:
+      1px solid #1b6a4a;
+
+    color:#1b6a4a;
+
+    font-size:0.74rem;
+
+    cursor:pointer;
+
+    padding:6px 12px;
+
+    border-radius:12px;
+
+    font-weight:700;
+
+    transition:0.25s ease;
+}
+
+#section-santri .btn-edit:hover{
+
+    background:#1b6a4a;
+
+    color:#fff;
+
+    transform:translateY(-2px);
+}
+
+/* SAVE */
+
+#section-santri .btn-save{
+
+    background:
+      linear-gradient(
+        135deg,
+        #2d8b62,
+        #1b6a4a
+      );
+
+    border:none;
+
+    color:#fff;
+
+    font-size:0.74rem;
+
+    cursor:pointer;
+
+    padding:6px 12px;
+
+    border-radius:12px;
+
+    font-weight:700;
+
+    transition:0.25s ease;
+}
+
+#section-santri .btn-save:hover{
+
+    transform:translateY(-2px);
+}
+
+/* DELETE */
+
+#section-santri .btn-delete{
+
     background:none;
 
     border:
@@ -400,109 +554,60 @@
 
     border-radius:10px;
 
-    text-transform:uppercase;
-
     font-weight:600;
 
     transition:0.25s ease;
 }
 
-.btn-delete:hover{
+#section-santri .btn-delete:hover{
+
     background:#d9534f;
 
     color:#fff;
-
-    transform:translateY(-1px);
 }
 
 /* =========================================================================
    UTILITAS
 ========================================================================= */
 
-.text-center{
+#section-santri .text-center{
     text-align:center;
 }
 
-.text-muted{
-    color:#6f857b;
+#section-santri .text-muted{
+    color:var(--santri-muted);
 }
 
 /* =========================================================================
    ADMIN ONLY
 ========================================================================= */
 
-.admin-only{
+#section-santri .admin-only{
     display:none !important;
 }
 
 /* =========================================================================
-   RESPONSIVE
+   RESPONSIVE HP
 ========================================================================= */
 
 @media(max-width:768px){
 
-    .grid-form{
+    #section-santri .grid-form{
         grid-template-columns:1fr;
     }
 
-    .card{
+    #section-santri .card{
         padding:18px;
         border-radius:20px;
     }
 
-    .santri-table{
+    #section-santri .santri-table{
         font-size:0.8rem;
     }
 
-    .santri-table th,
-    .santri-table td{
+    #section-santri .santri-table th,
+    #section-santri .santri-table td{
         padding:12px 10px;
     }
 
-}
-
-/* =========================================================================
-   TABLE WIDTH
-========================================================================= */
-
-.santri-table th,
-.santri-table td{
-    white-space:nowrap;
-}
-
-.santri-table th:nth-child(1){
-    width:35%;
-}
-
-/* =========================================================================
-   MOBILE TABLE SCROLL FIX
-========================================================================= */
-
-.table-responsive{
-    width:100%;
-    overflow-x:auto;
-    overflow-y:hidden;
-
-    -webkit-overflow-scrolling:touch;
-
-    border-radius:18px;
-}
-
-/* lebar minimum tabel */
-.santri-table{
-    min-width:700px;
-}
-
-/* scrollbar halus */
-.table-responsive::-webkit-scrollbar{
-    height:6px;
-}
-
-.table-responsive::-webkit-scrollbar-thumb{
-    background:rgba(27,106,74,0.35);
-    border-radius:20px;
-}
-
-.table-responsive::-webkit-scrollbar-track{
-    background:rgba(0,0,0,0.04);
 }
