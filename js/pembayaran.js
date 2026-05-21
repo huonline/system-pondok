@@ -212,3 +212,67 @@ document.body.addEventListener("click", async (e) => {
     }
   }
 });
+
+// =========================================================================
+// 6. FITUR CETAK KWITANSI MINI
+// =========================================================================
+document.body.addEventListener("click", async (e) => {
+  if (e.target.classList.contains("btn-cetak-bayar")) {
+    const id = e.target.getAttribute("data-id");
+    
+    // Ambil baris tabel tempat tombol ini diklik untuk menyalin datanya ke nota
+    const tr = e.target.closest("tr");
+    const nama = tr.cells[0].innerText.replace(/\*/g, ''); // Bersihkan karakter asteriks jika ada
+    const kategori = tr.cells[1].innerText;
+    const bulan = tr.cells[2].innerText;
+    const tagihan = tr.cells[3].innerText;
+    const dibayar = tr.cells[4].innerText;
+    const sisa = tr.cells[5].innerText;
+    const status = tr.cells[6].innerText;
+    const tanggal = tr.cells[7].innerText;
+
+    // Membuat halaman cetak (Kwitansi Struk Mini) secara instan via popup browser
+    const ruangCetak = window.open("", "_blank", "width=600,height=700");
+    ruangCetak.document.write(`
+      <html>
+        <head>
+          <title>Kwitansi Pembayaran Santri</title>
+          <style>
+            body { font-family: 'Courier New', Courier, monospace; padding: 20px; color: #000; line-height: 1.4; }
+            .header { text-align: center; border-bottom: 2px dashed #000; padding-bottom: 10px; margin-bottom: 15px; }
+            .title { font-size: 1.2rem; font-weight: bold; text-transform: uppercase; }
+            .info-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+            .info-table td { padding: 5px 0; font-size: 0.9rem; }
+            .info-table td:nth-child(2) { text-align: right; font-weight: bold; }
+            .footer { text-align: center; margin-top: 30px; border-top: 1px dashed #000; padding-top: 10px; font-size: 0.8rem; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <div class="title">PONDOK PESANTREN</div>
+            <div style="font-size: 0.8rem;">Bukti Pembayaran Administrasi Resmi</div>
+          </div>
+          <table class="info-table">
+            <tr><td>Tanggal Transaksi</td><td>${tanggal}</td></tr>
+            <tr><td>Nama Santri</td><td>${nama}</td></tr>
+            <tr><td>Kategori/Jenis</td><td>${kategori}</td></tr>
+            ${kategori === 'SPP Bulanan' ? `<tr><td>Untuk Bulan</td><td>${bulan}</td></tr>` : ''}
+            <tr><td colspan="2" style="border-bottom: 1px dashed #000;"></td></tr>
+            <tr><td>Jumlah Tagihan</td><td>${tagihan}</td></tr>
+            <tr><td>Jumlah Dibayarkan</td><td>${dibayar}</td></tr>
+            <tr><td colspan="2" style="border-bottom: 1px dashed #000;"></td></tr>
+            <tr><td>Sisa Tunggakan</td><td>${sisa === '-' ? 'Rp 0' : sisa}</td></tr>
+            <tr><td>Status Akhir</td><td>[ ${status} ]</td></tr>
+          </table>
+          <div class="footer">
+            <p>Terima kasih atas pembayarannya.<br>Simpan struk ini sebagai bukti sah.</p>
+          </div>
+          <script>
+            window.onload = function() { window.print(); window.close(); }
+          </script>
+        </body>
+      </html>
+    `);
+    ruangCetak.document.close();
+  }
+});
