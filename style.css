@@ -1,0 +1,84 @@
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== BASE ===== */
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #0a0a0f;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* ===== BACKGROUND OVERLAY ===== */
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, #0d0d1a 0%, #050508 100%);
+  z-index: 0;
+}
+
+/* ===== GRID LINES ===== */
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background-image:
+    linear-gradient(rgba(0, 180, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 180, 255, 0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* ===== GLOW MERAH - kiri bawah ===== */
+.glow-red {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  bottom: -150px;
+  left: -100px;
+  z-index: 2;
+  background: radial-gradient(circle, rgba(220, 20, 20, 0.35) 0%, transparent 70%);
+  filter: blur(60px);
+  animation: pulseRed 4s ease-in-out infinite;
+}
+
+/* ===== GLOW BIRU - kanan atas ===== */
+.glow-blue {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  top: -150px;
+  right: -100px;
+  z-index: 2;
+  background: radial-gradient(circle, rgba(0, 120, 255, 0.35) 0%, transparent 70%);
+  filter: blur(60px);
+  animation: pulseBlue 5s ease-in-out infinite;
+}
+
+/* ===== GLOW TENGAH - subtle merah gelap ===== */
+.glow-center {
+  position: fixed;
+  width: 500px;
+  height: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  background: radial-gradient(ellipse, rgba(180, 0, 0, 0.12) 0%, transparent 70%);
+  filter: blur(80px);
+}
+
+/* ===== ANIMASI GLOW ===== */
+@keyframes pulseRed {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(1.1); }
+}
+
+@keyframes pulseBlue {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(1.15); }
+}
