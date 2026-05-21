@@ -1,0 +1,96 @@
+.form-box {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 320px;
+  margin-top: 8px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: 'Courier New', monospace;
+}
+
+.input-field {
+  width: 100%;
+  padding: 11px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 13px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.08em;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.input-field::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.input-field:focus {
+  border-color: rgba(220, 20, 20, 0.7);
+  box-shadow: 0 0 14px rgba(220, 20, 20, 0.25);
+}
+
+.error-msg {
+  font-size: 11px;
+  color: rgba(255, 80, 80, 0.9);
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.08em;
+  min-height: 16px;
+  text-align: center;
+}
+
+.btn-masuk {
+  width: 100%;
+  margin-top: 4px;
+  padding: 13px;
+  background: transparent;
+  border: 1px solid rgba(220, 20, 20, 0.8);
+  color: #ffffff;
+  font-size: 13px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow:
+    0 0 18px rgba(220, 20, 20, 0.5),
+    inset 0 0 18px rgba(220, 20, 20, 0.07);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-masuk:hover {
+  border-color: rgba(220, 20, 20, 1);
+  box-shadow:
+    0 0 35px rgba(220, 20, 20, 0.9),
+    0 0 60px rgba(0, 120, 255, 0.3),
+    inset 0 0 25px rgba(220, 20, 20, 0.15);
+}
+
+.btn-masuk:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-masuk:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 400px) {
+  .form-box {
+    max-width: 100%;
+    padding: 0 8px;
+  }
+}
