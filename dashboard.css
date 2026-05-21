@@ -1,4 +1,13 @@
 /* =========================================================================
+   PENAWAR RACUN OBERFLOW HIDDEN DARI CSS LOGIN
+   ========================================================================= */
+html, body {
+    height: auto !important; /* Mengubah kembali tinggi kaku 100% menjadi otomatis */
+    overflow-x: hidden !important;
+    overflow-y: auto !important; /* MEMAKSA SCROLL UTAMA HALAMAN AKTIF KEMBALI */
+}
+
+/* =========================================================================
    1. RESET BUKAN UNTUK DIUBAH
    ========================================================================= */
 
