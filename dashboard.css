@@ -83,14 +83,16 @@ body{
    3. STRUKTUR UTAMA DASHBOARD WIDGET
    ========================================================================= */
 
-.dashboard-wrap{
-  position:relative;
-  z-index:2;
-  width:100%;
-  min-height:100vh;
-  padding:18px;
-  display:flex;
-  flex-direction:column;
+.dashboard-wrap {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-height: 100vh; /* Tetap menjaga background penuh */
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* MEMAKSA konten berkumpul di atas, tidak ditarik ke bawah */
+  gap: 10px; /* Jarak antar komponen dibuat rapat dan pas */
 }
 
 /* HEADER BOX */
@@ -239,13 +241,12 @@ body{
   background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
 }
 
-/* CONTAINER KONTEN UTAMA */
-.main-content{
-  width:100%;
-  flex:1;
-  position:relative;
+.main-content {
+  width: 100%;
+  flex: none !important; /* MEMATIKAN fungsi flex-grow agar tidak memaksa konten melar ke bawah */
+  position: relative;
+  margin-top: 5px; /* Jarak pas dari batas menu navigasi */
 }
-
 .main-content > *{
   width:100%;
 }
@@ -256,8 +257,11 @@ body{
   width:100%;
 }
 
-.section.active{
-  display:block !important;
+/* Pastikan section yang aktif langsung mengunci ukurannya dengan rapi */
+.section.active {
+  display: block !important;
+  height: auto !important;
+  margin-top: 0 !important;
 }
 
 
