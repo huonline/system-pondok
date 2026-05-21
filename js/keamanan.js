@@ -1,34 +1,69 @@
-// =========================================================================
-// 6. LOGIKA MENU KEAMANAN (PERIZINAN SANTRI)
-// =========================================================================
+import { db, auth } from "./firebase.js"; 
+import { 
+  collection, 
+  addDoc, 
+  deleteDoc, 
+  updateDoc,
+  doc, 
+  onSnapshot 
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-// A. Isi Datalist Pencarian Nama Santri Otomatis (Live Search)
+// =========================================================================
+// 1. CEK STATUS LOGIN ADMIN (AGAR TOMBOL AKSI MUNCUL)
+// =========================================================================
+let isAdmin = false;
+
+onAuthStateChanged(auth, (user) => {
+  const adminElements = document.querySelectorAll('.admin-only');
+  
+  if (user) {
+    isAdmin = true;
+    adminElements.forEach(el => {
+      if (el.tagName === 'TR' || el.tagName === 'TD' || el.tagName === 'TH') {
+        el.style.setProperty('display', 'table-cell', 'important');
+      } else {
+        el.style.setProperty('display', 'block', 'important');
+      }
+    });
+  } else {
+    isAdmin = false;
+    adminElements.forEach(el => {
+      el.style.setProperty('display', 'none', 'important');
+    });
+  }
+});
+
+// =========================================================================
+// 2. LIVE SEARCH NAMA SANTRI
+// =========================================================================
 const datalistSantri = document.getElementById("data-santri-list");
 if (datalistSantri) {
   onSnapshot(collection(db, "santri"), (snapshot) => {
-    datalistSantri.innerHTML = ""; // Bersihkan list lama
+    datalistSantri.innerHTML = ""; 
     snapshot.forEach((docSnap) => {
       const santri = docSnap.data();
       const option = document.createElement("option");
-      option.value = santri.nama; // Memasukkan nama santri ke dropdown
+      option.value = santri.nama; 
       datalistSantri.appendChild(option);
     });
   });
 }
 
-// Fungsi Bantuan: Format Tanggal agar lebih mudah dibaca
+// Format Tanggal & Rupiah
 const formatTanggal = (isoString) => {
   if (!isoString || isoString === "-") return "-";
   const d = new Date(isoString);
   return d.toLocaleString("id-ID", { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 };
 
-// Fungsi Bantuan: Format Angka ke Rupiah (Denda)
 const formatRupiah = (angka) => {
   return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(angka);
 };
 
-// B. Read Data Perizinan Real-Time
+// =========================================================================
+// 3. READ DATA PERIZINAN REAL-TIME
+// =========================================================================
 const tbodyIzin = document.getElementById("list-izin-santri");
 
 onSnapshot(collection(db, "perizinan"), (snapshot) => {
@@ -41,15 +76,12 @@ onSnapshot(collection(db, "perizinan"), (snapshot) => {
     const id = docSnap.id;
     count++;
 
-    // Atur warna badge berdasarkan status
     let badgeClass = "status-keluar";
     if (izin.status === "Tepat Waktu") badgeClass = "status-tepat";
     if (izin.status === "Terlambat") badgeClass = "status-terlambat";
 
-    // Format Denda
     const dendaTeks = izin.denda > 0 ? `<span class="text-denda">${formatRupiah(izin.denda)}</span>` : `<span class="text-aman">-</span>`;
 
-    // Tombol konfirmasi HANYA muncul jika santri belum kembali (Sedang Keluar)
     const tombolKonfirmasi = izin.status === "Sedang Keluar" 
       ? `<button class="btn-konfirmasi" data-id="${id}" data-batas="${izin.batasWaktu}">Konfirmasi</button>` 
       : "";
@@ -79,7 +111,9 @@ onSnapshot(collection(db, "perizinan"), (snapshot) => {
   }
 });
 
-// C. Write: Tambah Data Perizinan Baru ke Firebase
+// =========================================================================
+// 4. WRITE DATA PERIZINAN BARU
+// =========================================================================
 const formIzin = document.getElementById("form-izin");
 if (formIzin) {
   formIzin.addEventListener("submit", async (e) => {
@@ -109,9 +143,10 @@ if (formIzin) {
   });
 }
 
-// D. Update Kedatangan & Hitung Denda (Delegasi Event)
+// =========================================================================
+// 5. UPDATE KEDATANGAN & HITUNG DENDA
+// =========================================================================
 document.body.addEventListener("click", async (e) => {
-  // 1. Aksi Tombol Konfirmasi Kedatangan
   if (e.target.classList.contains("btn-konfirmasi")) {
     const id = e.target.getAttribute("data-id");
     const batasWaktuIso = e.target.getAttribute("data-batas");
@@ -123,29 +158,26 @@ document.body.addEventListener("click", async (e) => {
       let statusBaru = "Tepat Waktu";
       let totalDenda = 0;
 
-      // Logika Keterlambatan dan Denda
       if (sekarang > batasWaktu) {
         statusBaru = "Terlambat";
         const selisihMs = sekarang - batasWaktu;
-        // Hitung selisih hari (dibulatkan ke atas: lewat 1 jam = denda 1 hari penuh)
         const selisihHari = Math.ceil(selisihMs / (1000 * 60 * 60 * 24));
-        totalDenda = selisihHari * 10000; // Rp 10.000 per hari
+        totalDenda = selisihHari * 10000; 
       }
 
       try {
         await updateDoc(doc(db, "perizinan", id), {
-          waktuKembali: sekarang.toISOString(), // Catat jam kembali real-time
+          waktuKembali: sekarang.toISOString(),
           status: statusBaru,
           denda: totalDenda
         });
-        alert(`Kedatangan berhasil dikonfirmasi!\nStatus: ${statusBaru}\nTotal Denda: Rp ${totalDenda.toLocaleString("id-ID")}`);
+        alert(`Kedatangan dikonfirmasi!\nStatus: ${statusBaru}\nDenda: Rp ${totalDenda.toLocaleString("id-ID")}`);
       } catch (error) {
-        console.error("Gagal update kedatangan: ", error);
+        console.error("Gagal update: ", error);
       }
     }
   }
 
-  // 2. Aksi Tombol Hapus Riwayat Izin
   if (e.target.classList.contains("btn-delete-izin")) {
     const id = e.target.getAttribute("data-id");
     if (confirm("Apakah Anda yakin ingin menghapus catatan izin ini?")) {
