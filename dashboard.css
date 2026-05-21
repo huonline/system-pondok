@@ -267,3 +267,85 @@
     padding: 20px 16px;
   }
 }
+
+/* =========================================================================
+   PENYESUAIAN CSS: INLINE EDIT DALAM TABEL CYBER
+   ========================================================================= */
+
+/* Kotak input mini saat tabel dalam mode edit */
+.santri-table input.table-input {
+    width: 100%;
+    padding: 6px 10px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--cyber-border-muted);
+    border-radius: var(--radius-md);
+    color: var(--cyber-text-main);
+    font-size: 0.85rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+/* Efek menyala saat kotak input di dalam tabel diklik */
+.santri-table input.table-input:focus {
+    border-color: var(--cyber-neon-pink);
+    box-shadow: var(--cyber-neon-glow-pink);
+}
+
+/* Wrapper untuk tombol aksi agar berjejer rapi di kolom Aksi */
+.action-actions-wrap {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Tombol Edit / Simpan Mini */
+.btn-edit, .btn-save {
+    background: none;
+    font-size: 0.75rem;
+    cursor: pointer;
+    padding: 3px 8px;
+    border-radius: var(--radius-md);
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+/* Style khusus tombol Edit (Neon Biru) */
+.btn-edit {
+    border: 1px solid var(--cyber-neon-blue);
+    color: var(--cyber-neon-blue);
+}
+
+.btn-edit:hover {
+    background: var(--cyber-neon-blue);
+    color: #000;
+    box-shadow: var(--cyber-neon-glow-blue);
+}
+
+/* Style khusus tombol Simpan (Neon Hijau/Emerald) */
+.btn-save {
+    border: 1px solid #00ff66;
+    color: #00ff66;
+}
+
+.btn-save:hover {
+    background: #00ff66;
+    color: #000;
+    box-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+}
+
+/* Mengatur ulang grid form karena input asrama & alamat di atas sudah dihapus */
+.grid-form {
+    display: grid;
+    grid-template-columns: 2fr 1fr auto; /* Nama lebih lebar, kategori sedang, tombol pas */
+    gap: 15px;
+    align-items: flex-end;
+}
+
+/* Responsif untuk layar hp agar form kembali menumpuk rapi */
+@media (max-width: 768px) {
+    .grid-form {
+        grid-template-columns: 1fr;
+    }
+}
