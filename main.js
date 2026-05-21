@@ -104,3 +104,11 @@ function animate(ts) {
 }
 
 requestAnimationFrame(animate);
+
+// TOMBOL MASUK
+const btnMasuk = document.getElementById('btnMasuk');
+if (btnMasuk) {
+  btnMasuk.addEventListener('click', () => {
+    window.location.href = 'dashboard.html';
+  });
+}
