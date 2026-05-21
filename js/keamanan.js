@@ -1,4 +1,7 @@
-import { db, auth } from "./firebase.js"; 
+// GANTI BARIS PERTAMA MENJADI SEPERTI INI (Pakai titik dua kali)
+import { db, auth } from "../firebase.js"; 
+
+// Kode di bawahnya (import gstatic, cek login, dll) biarkan TETAP SAMA seperti sebelumnya
 import { 
   collection, 
   addDoc, 
@@ -7,7 +10,7 @@ import {
   doc, 
   onSnapshot 
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+// ... dan seterusnya sampai bawah ...
 
 // =========================================================================
 // 1. CEK STATUS LOGIN ADMIN (AGAR TOMBOL AKSI MUNCUL)
