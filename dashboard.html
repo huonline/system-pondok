@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="dashboard.css" />
   <link rel="stylesheet" href="css/daftarsantri.css" />
   <link rel="stylesheet" href="css/keamanan.css" />
+  <link rel="stylesheet" href="css/pembayaran.css" />
 </head>
 <body>
 
@@ -213,9 +214,83 @@
 
 </section>
 
-      <section class="section" id="section-pembayaran">
-        <!-- isi nanti -->
-      </section>
+     <section class="section" id="section-pembayaran">
+  
+  <div class="admin-only card form-santri-box">
+    <h3 class="form-title" style="color: #00ff66;">Form Input Pembayaran Santri</h3>
+    <form id="form-pembayaran" class="grid-form">
+      
+      <div class="form-group">
+        <label for="bayar-nama">Nama Santri (Pencarian)</label>
+        <input type="text" id="bayar-nama" list="data-santri-list-bayar" placeholder="Ketik nama santri..." autocomplete="off" required />
+        <datalist id="data-santri-list-bayar">
+          </datalist>
+      </div>
+
+      <div class="form-group">
+        <label for="bayar-jenis">Jenis Pembayaran</label>
+        <select id="bayar-jenis" required>
+          <option value="" disabled selected>-- Pilih Kategori --</option>
+          <option value="SPP Bulanan">SPP Bulanan (Rp 320.000)</option>
+          <option value="Pendaftaran">Uang Pendaftaran</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="group-bulan">
+        <label for="bayar-bulan">Untuk Bulan</label>
+        <select id="bayar-bulan">
+          <option value="-">-- Pilih Bulan --</option>
+          <option value="Januari">Januari</option>
+          <option value="Februari">Februari</option>
+          <option value="Maret">Maret</option>
+          <option value="April">April</option>
+          <option value="Mei">Mei</option>
+          <option value="Juni">Juni</option>
+          <option value="Juli">Juli</option>
+          <option value="Agustus">Agustus</option>
+          <option value="September">September</option>
+          <option value="Oktober">Oktober</option>
+          <option value="November">November</option>
+          <option value="Desember">Desember</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="bayar-jumlah">Jumlah Uang Dibayar (Rp)</label>
+        <input type="number" id="bayar-jumlah" placeholder="Contoh: 320000" min="0" required />
+      </div>
+
+      <button type="submit" class="btn-submit" style="border-color: #00ff66; color: #00ff66;">Simpan Transaksi</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3 class="form-title">Riwayat Transaksi Keuangan</h3>
+    <div class="table-responsive">
+      <table class="santri-table">
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Kategori</th>
+            <th>Bulan</th>
+            <th>Tagihan</th>
+            <th>Dibayar</th>
+            <th>Sisa Saku/Kurang</th>
+            <th>Status</th>
+            <th>Tgl Bayar</th>
+            <th class="admin-only text-center">Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="list-pembayaran-santri">
+          <tr>
+            <td colspan="9" class="text-center text-muted">Memuat data transaksi...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
 
       <section class="section" id="section-absensi">
         <!-- isi nanti -->
