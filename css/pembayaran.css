@@ -1,0 +1,38 @@
+/* =========================================================================
+   STYLE KHUSUS MENU PEMBAYARAN KEUANGAN
+   ========================================================================= */
+
+/* Badge Status Lunas (Hijau Emerald Neon) */
+.status-lunas {
+    border: 1px solid #00ff66;
+    color: #00ff66;
+    box-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
+}
+
+/* Badge Status Dicicil / Kurang (Oranye/Kuning Neon) */
+.status-cicil {
+    border: 1px solid #ffaa00;
+    color: #ffaa00;
+    box-shadow: 0 0 8px rgba(255, 170, 0, 0.4);
+}
+
+/* Teks angka minus/tunggakan uang */
+.text-tunggakan {
+    color: #ff4444;
+    font-weight: bold;
+}
+
+/* Teks angka jika pas atau tidak ada tunggakan */
+.text-pas {
+    color: var(--cyber-text-muted);
+}
+
+/* Penyesuaian layout form agar input number panah bawaan browser tidak merusak style */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
