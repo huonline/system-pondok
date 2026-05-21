@@ -89,7 +89,7 @@ onSnapshot(collection(db, "pembayaran"), (snapshot) => {
 
     const rowHTML = `
       <tr>
-       // CARI BAGIAN INI DI DALAM SNAPSHOT KODE ROWHTML:
+      
 <td class="admin-only text-center" style="display: ${isAdmin ? 'table-cell' : 'none'} !important;">
   <div class="action-actions-wrap" style="display: flex; gap: 5px; justify-content: center;">
     <button class="btn-cetak-bayar" data-id="${id}" style="background: none; border: 1px solid #00ff66; color: #00ff66; padding: 3px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem;">Cetak</button>
