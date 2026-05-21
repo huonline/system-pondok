@@ -1,0 +1,71 @@
+/* =========================================================================
+   STYLE KHUSUS MENU KEAMANAN (PERIZINAN)
+   ========================================================================= */
+
+/* Mengakali ikon kalender pada datetime-local agar terlihat di tema gelap */
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+/* Label Status Perizinan */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+    letter-spacing: 0.5px;
+}
+
+/* Warna Kuning Neon untuk santri yang masih di luar */
+.status-keluar {
+    border: 1px solid #ffcc00;
+    color: #ffcc00;
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.4);
+}
+
+/* Warna Hijau Neon jika kembali tepat waktu */
+.status-tepat {
+    border: 1px solid #00ff66;
+    color: #00ff66;
+    box-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
+}
+
+/* Warna Merah Neon jika kembali terlambat */
+.status-terlambat {
+    border: 1px solid #ff4444;
+    color: #ff4444;
+    box-shadow: 0 0 8px rgba(255, 68, 68, 0.4);
+}
+
+/* Warna Teks untuk Denda */
+.text-denda {
+    color: #ff4444;
+    font-weight: bold;
+}
+
+.text-aman {
+    color: var(--cyber-text-muted);
+}
+
+/* Tombol Khusus "Konfirmasi Kedatangan" di Tabel */
+.btn-konfirmasi {
+    background: none;
+    border: 1px solid #ffcc00;
+    color: #ffcc00;
+    font-size: 0.75rem;
+    cursor: pointer;
+    padding: 3px 8px;
+    border-radius: var(--radius-md);
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-konfirmasi:hover {
+    background: #ffcc00;
+    color: #000;
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+}
