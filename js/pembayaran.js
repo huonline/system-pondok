@@ -87,15 +87,23 @@ onSnapshot(collection(db, "pembayaran"), (snapshot) => {
       ? `<span class="text-tunggakan">${formatRupiah(bayar.sisa)}</span>` 
       : `<span class="text-pas">-</span>`;
 
+    // Di sini nama sudah dibersihkan dari tanda bintang (**) agar tampil normal lagi
     const rowHTML = `
       <tr>
-      
-<td class="admin-only text-center" style="display: ${isAdmin ? 'table-cell' : 'none'} !important;">
-  <div class="action-actions-wrap" style="display: flex; gap: 5px; justify-content: center;">
-    <button class="btn-cetak-bayar" data-id="${id}" style="background: none; border: 1px solid #00ff66; color: #00ff66; padding: 3px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem;">Cetak</button>
-    <button class="btn-delete-bayar btn-delete" data-id="${id}">Hapus</button>
-  </div>
-</td>
+        <td>${bayar.nama}</td>
+        <td>${bayar.kategori}</td>
+        <td class="text-center">${bayar.bulan || "-"}</td>
+        <td>${formatRupiah(bayar.tagihan)}</td>
+        <td>${formatRupiah(bayar.dibayar)}</td>
+        <td>${sisaTeks}</td>
+        <td class="text-center"><span class="status-badge ${badgeClass}">${bayar.status}</span></td>
+        <td>${formatTanggal(bayar.tanggalBayar)}</td>
+        <td class="admin-only text-center" style="display: ${isAdmin ? 'table-cell' : 'none'} !important;">
+          <div class="action-actions-wrap" style="display: flex; gap: 5px; justify-content: center;">
+            <button class="btn-cetak-bayar" data-id="${id}" style="background: none; border: 1px solid #00ff66; color: #00ff66; padding: 3px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem;">Cetak</button>
+            <button class="btn-delete-bayar btn-delete" data-id="${id}">Hapus</button>
+          </div>
+        </td>
       </tr>
     `;
     tbodyBayar.insertAdjacentHTML("beforeend", rowHTML);
@@ -120,7 +128,6 @@ if (formBayar) {
     let bulan = document.getElementById("bayar-bulan").value;
     const jumlahDibayar = parseInt(document.getElementById("bayar-jumlah").value) || 0;
 
-    // 1. Cari data santri di local memory untuk mencocokkan gender
     const cocokSantri = localDataSantri.find(s => s.nama.toLowerCase() === nama.toLowerCase());
 
     if (!cocokSantri) {
@@ -128,7 +135,6 @@ if (formBayar) {
       return;
     }
 
-    // Validasi input bulan khusus jika memilih SPP
     if (kategori === "SPP Bulanan" && bulan === "-") {
       alert("Silakan pilih bulan tagihan SPP terlebih dahulu.");
       return;
@@ -137,7 +143,6 @@ if (formBayar) {
       bulan = "-"; 
     }
 
-    // 2. Tentukan Nilai Tagihan Awal Bawaan Pondok
     let nominalTagihanAwal = 0;
     if (kategori === "SPP Bulanan") {
       nominalTagihanAwal = 320000;
@@ -146,7 +151,6 @@ if (formBayar) {
     }
 
     try {
-      // 3. AMBIL DATA DARI FIRESTORE UNTUK CEK RIWAYAT CICILAN SEBELUMNYA
       const querySnapshot = await getDocs(collection(db, "pembayaran"));
       let riwayatTransaksi = [];
 
@@ -171,11 +175,9 @@ if (formBayar) {
         nominalTagihanFinal = transaksiTerakhir.sisa;
       }
 
-      // 4. Hitung Sisa Tunggakan Baru
       const sisaTunggakanBaru = nominalTagihanFinal - jumlahDibayar;
       const statusPembayaran = sisaTunggakanBaru <= 0 ? "LUNAS" : "DICICIL";
 
-      // 5. Kirim data transaksi cicilan ke database Firebase
       await addDoc(collection(db, "pembayaran"), {
         nama: nama,
         kategori: kategori,
@@ -197,9 +199,10 @@ if (formBayar) {
 }
 
 // =========================================================================
-// 5. DELETE DATA: HAPUS RIWAYAT TRANSAKSI KEUANGAN
+// 5. DELETE DATA & FITUR CETAK NYA KANAN
 // =========================================================================
 document.body.addEventListener("click", async (e) => {
+  // Aksi tombol Hapus
   if (e.target.classList.contains("btn-delete-bayar")) {
     const id = e.target.getAttribute("data-id");
     if (confirm("Apakah Anda yakin ingin menghapus catatan transaksi ini?")) {
@@ -211,18 +214,11 @@ document.body.addEventListener("click", async (e) => {
       }
     }
   }
-});
 
-// =========================================================================
-// 6. FITUR CETAK KWITANSI MINI
-// =========================================================================
-document.body.addEventListener("click", async (e) => {
+  // Aksi tombol Cetak (Bebas mau dipakai atau diabaikan)
   if (e.target.classList.contains("btn-cetak-bayar")) {
-    const id = e.target.getAttribute("data-id");
-    
-    // Ambil baris tabel tempat tombol ini diklik untuk menyalin datanya ke nota
     const tr = e.target.closest("tr");
-    const nama = tr.cells[0].innerText.replace(/\*/g, ''); // Bersihkan karakter asteriks jika ada
+    const nama = tr.cells[0].innerText;
     const kategori = tr.cells[1].innerText;
     const bulan = tr.cells[2].innerText;
     const tagihan = tr.cells[3].innerText;
@@ -231,7 +227,6 @@ document.body.addEventListener("click", async (e) => {
     const status = tr.cells[6].innerText;
     const tanggal = tr.cells[7].innerText;
 
-    // Membuat halaman cetak (Kwitansi Struk Mini) secara instan via popup browser
     const ruangCetak = window.open("", "_blank", "width=600,height=700");
     ruangCetak.document.write(`
       <html>
@@ -256,7 +251,7 @@ document.body.addEventListener("click", async (e) => {
             <tr><td>Tanggal Transaksi</td><td>${tanggal}</td></tr>
             <tr><td>Nama Santri</td><td>${nama}</td></tr>
             <tr><td>Kategori/Jenis</td><td>${kategori}</td></tr>
-            ${kategori === 'SPP Bulanan' ? `<tr><td>Untuk Bulan</td><td>${bulan}</td></tr>` : ''}
+            \${kategori === 'SPP Bulanan' ? \`<tr><td>Untuk Bulan</td><td>\${bulan}</td></tr>\` : ''}
             <tr><td colspan="2" style="border-bottom: 1px dashed #000;"></td></tr>
             <tr><td>Jumlah Tagihan</td><td>${tagihan}</td></tr>
             <tr><td>Jumlah Dibayarkan</td><td>${dibayar}</td></tr>
