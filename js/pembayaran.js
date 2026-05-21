@@ -37,7 +37,7 @@ onAuthStateChanged(auth, (user) => {
 // 2. LIVE SEARCH NAMA SANTRI & SIMPAN LOCAL MEMORY UNTUK CEK GENDER
 // =========================================================================
 const datalistBayar = document.getElementById("data-santri-list-bayar");
-let localDataSantri = []; // Menyimpan data sementara untuk cek gender secara offline/cepat
+let localDataSantri = []; 
 
 if (datalistBayar) {
   onSnapshot(collection(db, "santri"), (snapshot) => {
@@ -46,7 +46,7 @@ if (datalistBayar) {
 
     snapshot.forEach((docSnap) => {
       const santri = docSnap.data();
-      localDataSantri.push(santri); // Simpan nama dan gender
+      localDataSantri.push(santri); 
 
       const option = document.createElement("option");
       option.value = santri.nama; 
@@ -81,10 +81,8 @@ onSnapshot(collection(db, "pembayaran"), (snapshot) => {
     const id = docSnap.id;
     count++;
 
-    // Tentukan badge status keuangan
     const badgeClass = bayar.status === "LUNAS" ? "status-lunas" : "status-cicil";
     
-    // Teks sisa tunggakan
     const sisaTeks = bayar.sisa > 0 
       ? `<span class="text-tunggakan">${formatRupiah(bayar.sisa)}</span>` 
       : `<span class="text-pas">-</span>`;
@@ -113,7 +111,7 @@ onSnapshot(collection(db, "pembayaran"), (snapshot) => {
 });
 
 // =========================================================================
-// 4. WRITE DATA: PROSES SIMPAN TRANSAKSI + LOGIKA OTOMATISASI TAGIHAN
+// 4. WRITE DATA: PROSES SIMPAN TRANSAKSI + AKUMULASI CICILAN AKURAT
 // =========================================================================
 const formBayar = document.getElementById("form-pembayaran");
 
@@ -134,48 +132,70 @@ if (formBayar) {
       return;
     }
 
-    // 2. Tentukan Nominal Tagihan Otomatis berdasarkan Aturan Pondok
-    let nominalTagihan = 0;
-
-    if (kategori === "SPP Bulanan") {
-      nominalTagihan = 320000; // SPP Flat Rp 320.000
-    } else if (kategori === "Pendaftaran") {
-      bulan = "-"; // Jika pendaftaran, kolom bulan diset strip otomatis
-      if (cocokSantri.gender === "Putra") {
-        nominalTagihan = 875000; // Pendaftaran Putra
-      } else if (cocokSantri.gender === "Putri") {
-        nominalTagihan = 945000; // Pendaftaran Putri
-      }
-    }
-
     // Validasi input bulan khusus jika memilih SPP
     if (kategori === "SPP Bulanan" && bulan === "-") {
       alert("Silakan pilih bulan tagihan SPP terlebih dahulu.");
       return;
     }
+    if (kategori === "Pendaftaran") {
+      bulan = "-"; 
+    }
 
-    // 3. Hitung Sisa Tunggakan dan Status Otomatis
-    const sisaTunggakan = nominalTagihan - jumlahDibayar;
-    const statusPembayaran = sisaTunggakan <= 0 ? "LUNAS" : "DICICIL";
+    // 2. Tentukan Nilai Tagihan Awal Bawaan Pondok
+    let nominalTagihanAwal = 0;
+    if (kategori === "SPP Bulanan") {
+      nominalTagihanAwal = 320000;
+    } else if (kategori === "Pendaftaran") {
+      nominalTagihanAwal = cocokSantri.gender === "Putra" ? 875000 : 945000;
+    }
 
     try {
-      // 4. Kirim data final ke database Firebase Firestore
+      // 3. AMBIL DATA DARI FIRESTORE UNTUK CEK RIWAYAT CICILAN SEBELUMNYA
+      const querySnapshot = await getDocs(collection(db, "pembayaran"));
+      let riwayatTransaksi = [];
+
+      querySnapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        if (data.nama.toLowerCase() === nama.toLowerCase() && data.kategori === kategori && data.bulan === bulan) {
+          riwayatTransaksi.push(data);
+        }
+      });
+
+      let nominalTagihanFinal = nominalTagihanAwal;
+
+      if (riwayatTransaksi.length > 0) {
+        riwayatTransaksi.sort((a, b) => new Date(b.tanggalBayar) - new Date(a.tanggalBayar));
+        const transaksiTerakhir = riwayatTransaksi[0];
+
+        if (transaksiTerakhir.status === "LUNAS") {
+          alert(`Transaksi untuk ${nama} pada kategori ${kategori} ${bulan !== '-' ? bulan : ''} sudah LUNAS sebelumnya.`);
+          return;
+        }
+
+        nominalTagihanFinal = transaksiTerakhir.sisa;
+      }
+
+      // 4. Hitung Sisa Tunggakan Baru
+      const sisaTunggakanBaru = nominalTagihanFinal - jumlahDibayar;
+      const statusPembayaran = sisaTunggakanBaru <= 0 ? "LUNAS" : "DICICIL";
+
+      // 5. Kirim data transaksi cicilan ke database Firebase
       await addDoc(collection(db, "pembayaran"), {
         nama: nama,
         kategori: kategori,
         bulan: bulan,
-        tagihan: nominalTagihan,
+        tagihan: nominalTagihanFinal, 
         dibayar: jumlahDibayar,
-        sisa: sisaTunggakan < 0 ? 0 : sisaTunggakan, // Mencegah minus jika bayar kelebihan
+        sisa: sisaTunggakanBaru < 0 ? 0 : sisaTunggakanBaru,
         status: statusPembayaran,
         tanggalBayar: new Date().toISOString()
       });
 
       formBayar.reset();
-      alert("Transaksi pembayaran berhasil disimpan!");
+      alert(`Transaksi berhasil! \nTagihan sebelumnya: Rp ${nominalTagihanFinal.toLocaleString("id-ID")}\nDibayar: Rp ${jumlahDibayar.toLocaleString("id-ID")}\nSisa Tunggakan Baru: Rp ${(sisaTunggakanBaru < 0 ? 0 : sisaTunggakanBaru).toLocaleString("id-ID")} (${statusPembayaran})`);
     } catch (error) {
-      console.error("Gagal menyimpan transaksi: ", error);
-      alert("Terjadi kesalahan saat menyimpan data pembayaran.");
+      console.error("Gagal memproses hitungan akumulasi keuangan: ", error);
+      alert("Terjadi kesalahan sistem saat menghitung sisa cicilan.");
     }
   });
 }
