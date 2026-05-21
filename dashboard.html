@@ -12,59 +12,75 @@
 </head>
 <body>
 
-  <div class="bg-grid"></div>
-  <canvas id="cv"></canvas>
+ <!-- HTML -->
+<div class="bg-grid"></div>
+<canvas id="cv"></canvas>
 
-  <div class="dashboard-wrap">
+<div class="dashboard-wrap">
 
-    <header class="header">
+  <header class="header">
 
-      <!-- ROW 1: LOGO KIRI + PROFIL KANAN -->
-      <div class="header-top">
-        <div class="header-brand">
-          <div class="logo-box">
-            <img src="assets/logo.png" alt="Logo Pondok" class="logo-img" />
-          </div>
-          <div class="brand-text">
-            <span class="brand-title">SISTEM INFORMASI</span>
-            <span class="brand-sub">Pondok Pesantren</span>
-          </div>
+    <!-- ROW 1 -->
+    <div class="header-top">
+
+      <div class="header-brand">
+        <div class="logo-box">
+          <img src="assets/logo.png" alt="Logo Pondok" class="logo-img" />
         </div>
-        <div class="header-profile">
-          <span class="profile-name">Admin</span>
-          <div class="profile-avatar">AD</div>
+
+        <div class="brand-text">
+          <span class="brand-title">SISTEM INFORMASI</span>
+          <span class="brand-sub">Pondok Pesantren</span>
         </div>
       </div>
 
-      <!-- ROW 2: NAVIGASI MENU -->
-      <div class="header-nav">
-        <nav class="nav-menu">
-          <button class="nav-btn active" data-section="santri">
-            <span class="nav-icon">&#9632;</span>
-            Data Santri
-          </button>
-          <button class="nav-btn" data-section="keamanan">
-            <span class="nav-icon">&#9632;</span>
-            Keamanan
-          </button>
-          <button class="nav-btn" data-section="pembayaran">
-            <span class="nav-icon">&#9632;</span>
-            Pembayaran
-          </button>
-          <button class="nav-btn" data-section="absensi">
-            <span class="nav-icon">&#9632;</span>
-            Absensi
-          </button>
-        </nav>
+      <div class="header-profile">
+        <span class="profile-name">Admin</span>
+        <div class="profile-avatar">AD</div>
       </div>
 
-    </header>
+    </div>
 
-    <!-- DIVIDER -->
-    <div class="header-divider"></div>
+    <!-- ROW 2 -->
+    <div class="header-nav">
+      <nav class="nav-menu">
 
-    <!-- MAIN CONTENT -->
-    <main class="main-content">
+        <button class="nav-btn active" data-section="santri">
+          <span class="nav-icon">&#9632;</span>
+          Data Santri
+        </button>
+
+        <button class="nav-btn" data-section="keamanan">
+          <span class="nav-icon">&#9632;</span>
+          Keamanan
+        </button>
+
+        <button class="nav-btn" data-section="pembayaran">
+          <span class="nav-icon">&#9632;</span>
+          Pembayaran
+        </button>
+
+        <button class="nav-btn" data-section="absensi">
+          <span class="nav-icon">&#9632;</span>
+          Absensi
+        </button>
+
+      </nav>
+    </div>
+
+  </header>
+
+  <div class="header-divider"></div>
+
+  <main class="main-content">
+
+    <div class="content-card"></div>
+    <div class="content-card"></div>
+    <div class="content-card"></div>
+
+  </main>
+
+</div>
 
       <section class="section active" id="section-santri">
 
