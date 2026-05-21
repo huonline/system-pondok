@@ -233,3 +233,53 @@
 .admin-only {
     display: none !important; /* Disembunyikan dulu, nanti JS yang munculin */
 }
+
+/* =========================================================================
+   PENYESUAIAN CSS: INPUT MASSAL + KOLOM ALAMAT
+   ========================================================================= */
+
+/* Mengatur ulang grid form agar textarea dan input biasa seimbang */
+.grid-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    align-items: flex-end;
+}
+
+/* Memaksa form-group khusus textarea agar memakan space lebih luas (2 kolom) di layar lebar */
+@media (min-width: 768px) {
+    .style-textarea {
+        grid-column: span 2;
+    }
+}
+
+/* Style khusus untuk Textarea agar serasi dengan input lainnya */
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--cyber-border-muted);
+    border-radius: var(--radius-md);
+    color: var(--cyber-text-main);
+    font-size: 0.9rem;
+    outline: none;
+    resize: none; /* Mematikan fungsi manual resize agar layout tidak rusak */
+    transition: 0.2s;
+}
+
+.form-group textarea:focus {
+    border-color: var(--cyber-neon-blue);
+    box-shadow: var(--cyber-neon-glow-blue);
+}
+
+/* Menyesuaikan ulang lebar kolom tabel setelah ditambah kolom Alamat */
+.santri-table th, 
+.santri-table td {
+    padding: 12px 10px;
+    white-space: nowrap; /* Mencegah teks terpotong aneh di layar kecil */
+}
+
+/* Memberikan sedikit kelonggaran lebar pada kolom nama */
+.santri-table th:nth-child(1) {
+    width: 35%;
+}
