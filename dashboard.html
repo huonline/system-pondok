@@ -152,11 +152,64 @@
 
 </div>
         <!-- isi nanti -->
-      </section>
+    <section class="section" id="section-keamanan">
+  
+  <div class="admin-only card form-santri-box">
+    <h3 class="form-title" style="color: var(--cyber-neon-blue);">Form Perizinan Keluar Santri</h3>
+    <form id="form-izin" class="grid-form">
+      
+      <div class="form-group">
+        <label for="izin-nama">Nama Santri (Pencarian)</label>
+        <input type="text" id="izin-nama" list="data-santri-list" placeholder="Ketik nama santri..." autocomplete="off" required />
+        <datalist id="data-santri-list">
+          </datalist>
+      </div>
 
-      <section class="section" id="section-keamanan">
-        <!-- isi nanti -->
-      </section>
+      <div class="form-group">
+        <label for="izin-alasan">Alasan Izin</label>
+        <input type="text" id="izin-alasan" placeholder="Contoh: Pulang Bulanan" required />
+      </div>
+
+      <div class="form-group">
+        <label for="izin-waktu-keluar">Waktu Keluar</label>
+        <input type="datetime-local" id="izin-waktu-keluar" required />
+      </div>
+
+      <div class="form-group">
+        <label for="izin-batas-waktu">Batas Waktu Kembali</label>
+        <input type="datetime-local" id="izin-batas-waktu" required />
+      </div>
+
+      <button type="submit" class="btn-submit" style="border-color: var(--cyber-neon-blue); color: var(--cyber-neon-blue);">Simpan Izin</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3 class="form-title">Data Riwayat Perizinan</h3>
+    <div class="table-responsive">
+      <table class="santri-table">
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Alasan</th>
+            <th>Tgl Keluar</th>
+            <th>Batas Waktu</th>
+            <th>Tgl Kembali</th>
+            <th>Status</th>
+            <th>Denda</th>
+            <th class="admin-only text-center">Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="list-izin-santri">
+          <tr>
+            <td colspan="8" class="text-center text-muted">Memuat data perizinan...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
 
       <section class="section" id="section-pembayaran">
         <!-- isi nanti -->
