@@ -1,143 +1,19 @@
-"use client"
-import { useState, useRef } from "react"
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Pondok</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-export default function Home() {
-  const [open, setOpen] = useState(false)
-  const audioRef = useRef(null)
+  <!-- BACKGROUND EFFECTS -->
+  <div class="bg-overlay"></div>
+  <div class="bg-grid"></div>
+  <div class="glow glow-red"></div>
+  <div class="glow glow-blue"></div>
+  <div class="glow glow-center"></div>
 
-  const handleOpen = () => {
-    setOpen(true)
-    if (audioRef.current) {
-      audioRef.current.play()
-    }
-  }
-
-  return (
-    <>
-      {/* AUDIO */}
-      <audio ref={audioRef} loop>
-        <source src="/music.mp3" type="audio/mpeg" />
-      </audio>
-
-      {/* OPENING SCREEN */}
-      {!open && (
-        <div style={styles.opening}>
-          <p>Kepada Yth.</p>
-          <h2>Tamu Undangan</h2>
-          <button onClick={handleOpen} style={styles.button}>
-            Buka Undangan
-          </button>
-        </div>
-      )}
-
-      {/* MAIN CONTENT */}
-      {open && (
-        <div style={styles.container}>
-          
-          {/* HERO */}
-          <section style={styles.hero}>
-            <h1>Asep Ilyas & Ai Siti Rahmawati</h1>
-            <p>07 Juni 2026</p>
-          </section>
-
-          {/* STORY */}
-          <section style={styles.section}>
-            <h2>Kisah Kami</h2>
-            <p>
-              Berawal dari pertemuan sederhana, hingga akhirnya kami
-              memutuskan untuk melangkah bersama dalam ikatan suci.
-            </p>
-          </section>
-
-          {/* EVENT */}
-          <section style={styles.section}>
-            <h2>Acara</h2>
-            <p>Akad: 08.00 WIB</p>
-            <p>Resepsi: 10.00 WIB sd selesai</p>
-            <p>Lokasi: kediaman mempelai wanita</p>
-          </section>
-
-          {/* GALLERY */}
-          <section style={styles.section}>
-            <h2>Galeri</h2>
-            <div style={styles.gallery}>
-              <img src="/foto1.jpg" style={styles.img}/>
-              <img src="/foto2.jpg" style={styles.img}/>
-              <img src="/foto3.jpg" style={styles.img}/>
-            </div>
-          </section>
-
-          {/* RSVP */}
-          <section style={styles.section}>
-            <h2>RSVP</h2>
-            <form style={styles.form}>
-              <input placeholder="Nama" style={styles.input}/>
-              <select style={styles.input}>
-                <option>Hadir</option>
-                <option>Tidak Hadir</option>
-              </select>
-              <button style={styles.button}>Kirim</button>
-            </form>
-          </section>
-
-        </div>
-      )}
-    </>
-  )
-}
-
-const styles = {
-  opening: {
-    height: "100vh",
-    background: "black",
-    color: "white",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "10px"
-  },
-  container: {
-    fontFamily: "sans-serif"
-  },
-  hero: {
-    height: "100vh",
-    background: "#111",
-    color: "white",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  section: {
-    padding: "40px",
-    textAlign: "center"
-  },
-  gallery: {
-    display: "flex",
-    gap: "10px",
-    justifyContent: "center"
-  },
-  img: {
-    width: "100px",
-    height: "100px",
-    objectFit: "cover"
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "10px",
-    alignItems: "center"
-  },
-  input: {
-    padding: "8px",
-    width: "200px"
-  },
-  button: {
-    padding: "10px 20px",
-    border: "none",
-    background: "black",
-    color: "white",
-    cursor: "pointer"
-  }
-}
+</body>
+</html>
