@@ -1,228 +1,214 @@
 /* =========================================================================
-   PENAWAR RACUN OBERFLOW HIDDEN DARI CSS LOGIN
+   PENAWAR RACUN OVERFLOW HIDDEN DARI CSS LOGIN
    ========================================================================= */
 html, body {
-    height: auto !important; /* Mengubah kembali tinggi kaku 100% menjadi otomatis */
+    height: auto !important;
     overflow-x: hidden !important;
     overflow-y: auto !important; /* MEMAKSA SCROLL UTAMA HALAMAN AKTIF KEMBALI */
 }
 
 /* =========================================================================
-   1. RESET BUKAN UNTUK DIUBAH
+   1. RESET GLOBAL & VARIABEL WARNA
    ========================================================================= */
-
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 :root{
-  --green-dark:#0f3d2e;
-  --green:#1b6a4a;
-  --green-light:#2d8b62;
-
-  --white:#ffffff;
-  --soft:#f4f8f5;
-
-  --text:#1f2d26;
-
-  --shadow:
-    0 10px 30px rgba(0,0,0,0.08);
+  --green-dark: #0f3d2e;
+  --green: #1b6a4a;
+  --green-light: #2d8b62;
+  --white: #ffffff;
+  --soft: #f4f8f5;
+  --text: #1f2d26;
+  --shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
 /* =========================================================================
-   2. BODY (LATAR BELAKANG DASHBOARD)
+   2. BODY & LATAR BELAKANG ANIMASI DASHBOARD
    ========================================================================= */
-
 body{
-  font-family:'Inter',sans-serif;
-  min-height:100vh;
-  overflow-x:hidden;
-  position:relative;
-  color:var(--text);
-
-  background:
-    linear-gradient(
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  color: var(--text);
+  background: linear-gradient(
       to bottom,
       #0d3327 0%,
       #145039 18%,
       #ffffff 48%,
       #ffffff 58%,
       #1d6849 82%,
-      #0f3d2e 100%
+      #0f3d2e 100-percent
     );
 }
 
-/* BG GRID */
 .bg-grid{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
   background-image:
     linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-
-  background-size:40px 40px;
+  background-size: 40px 40px;
 }
 
-/* CANVAS ANIMASI */
 #cv{
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:0;
-  opacity:.15;
-  pointer-events:none;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: .15;
+  pointer-events: none;
 }
 
 /* =========================================================================
    3. STRUKTUR UTAMA DASHBOARD WIDGET
    ========================================================================= */
-
 .dashboard-wrap {
   position: relative;
   z-index: 2;
   width: 100%;
-  min-height: 100vh; /* Tetap menjaga background penuh */
+  min-height: 100vh;
   padding: 18px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* MEMAKSA konten berkumpul di atas, tidak ditarik ke bawah */
-  gap: 10px; /* Jarak antar komponen dibuat rapat dan pas */
+  justify-content: flex-start; /* Konten konsisten berkumpul mepet ke atas */
+  gap: 10px;
 }
 
 /* HEADER BOX */
 .header{
-  width:100%;
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-  padding:22px;
-  border-radius:30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 22px;
+  border-radius: 30px;
   background: rgba(255, 255, 255, 0.08);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(255,255,255,0.12);
-  box-shadow:var(--shadow);
+  box-shadow: var(--shadow);
   margin-bottom: 20px;
 }
 
 .header-top{
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  flex-wrap:wrap;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-/* BRAND LOGO */
 .header-brand{
-  display:flex;
-  align-items:center;
-  gap:16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .logo-box{
-  width:72px;
-  height:72px;
-  border-radius:22px;
-  overflow:hidden;
-  flex-shrink:0;
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  overflow: hidden;
+  flex-shrink: 0;
   background: rgba(255,255,255,0.12);
   border: 1px solid rgba(255,255,255,0.15);
 }
 
 .logo-img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .brand-text{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .brand-title{
-  font-size:1.2rem;
-  font-weight:700;
-  letter-spacing:.5px;
-  color:#fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: #fff;
 }
 
 .brand-sub{
-  font-size:.92rem;
+  font-size: .92rem;
   color: rgba(255,255,255,0.75);
 }
 
 /* PROFILE ADMIN */
 .header-profile{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:10px 14px;
-  border-radius:16px;
-  background: rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255,255,255,0.12);
 }
 
 .profile-name{
-  color:#fff;
-  font-weight:600;
+  color: #fff;
+  font-weight: 600;
 }
 
 .profile-avatar{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:.9rem;
-  font-weight:700;
-  color:#fff;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .9rem;
+  font-weight: 700;
+  color: #fff;
   background: linear-gradient(135deg, #39a06f, #1d6849);
 }
 
 /* NAVIGATION BAR */
 .header-nav{
-  width:100%;
+  width: 100%;
 }
 
 .nav-menu{
-  width:100%;
-  display:grid;
-  grid-template-columns: repeat(4,1fr);
-  gap:14px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
 }
 
 .nav-btn{
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  padding:16px 12px;
-  border:none;
-  border-radius:18px;
-  cursor:pointer;
-  font-size:.92rem;
-  font-weight:600;
-  color:#fff;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 12px;
+  border: none;
+  border-radius: 18px;
+  cursor: pointer;
+  font-size: .92rem;
+  font-weight: 600;
+  color: #fff;
   background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-  transition:.3s ease;
+  border: 1px solid rgba(255,255,255,0.1;
+  transition: .3s ease;
 }
 
 .nav-btn:hover{
-  transform:translateY(-3px);
-  background: rgba(255,255,255,0.14);
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .nav-btn.active{
@@ -230,47 +216,52 @@ body{
   box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
-.nav-icon{
-  font-size:.65rem;
-}
-
 .header-divider{
-  width:100%;
-  height:1px;
-  margin:24px 0;
+  width: 100%;
+  height: 1px;
+  margin: 24px 0;
   background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
 }
 
+/* CONTENT BOX WRAPPER */
 .main-content {
   width: 100%;
-  flex: none !important; /* MEMATIKAN fungsi flex-grow agar tidak memaksa konten melar ke bawah */
+  flex: none !important; /* Mencegah konten melar paksa ke bawah layar */
   position: relative;
-  margin-top: 5px; /* Jarak pas dari batas menu navigasi */
+  margin-top: 5px;
 }
+
 .main-content > *{
-  width:100%;
+  width: 100%;
 }
 
-/* TAB NAVIGATION SYSTEM */
 .section{
-  display:none;
-  width:100%;
+  display: none;
+  width: 100%;
 }
 
-/* Pastikan section yang aktif langsung mengunci ukurannya dengan rapi */
 .section.active {
   display: block !important;
   height: auto !important;
   margin-top: 0 !important;
 }
 
+/* =========================================================================
+   4. TAMPILAN GRID SANTRI UTAMA (2 KOLOM LAPTOP/PC SEJAJAR)
+   ========================================================================= */
+.santri-grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Membagi layar PC menjadi 2 kolom kanan-kiri */
+  gap: 20px;
+  width: 100%;
+  align-items: start;
+}
 
 /* =========================================================================
-   4. TAMPILAN CARD SOLID MENU (DATA SANTRI, KEAMANAN, PEMBAYARAN)
+   5. TAMPILAN CARD SOLID MENU COMPONENT
    ========================================================================= */
-
 .card, .form-santri-box {
-    background: #14281d !important; /* Hijau tua pekat solid anti-tembus pandang */
+    background: #14281d !important;
     border: 2px solid #22c55e !important; 
     border-radius: 14px !important;
     padding: 20px !important;
@@ -338,27 +329,25 @@ body{
     background: #16a34a !important;
 }
 
-
 /* =========================================================================
-   5. PERBAIKAN TOTAL FITUR SCROLL DATA TABEL (ANTI TERPOTONG)
+   6. RESPONSIVE DATA TABEL SCROLL SYSTEM
    ========================================================================= */
-
 .table-responsive {
     width: 100% !important;
-    display: block !important; /* WAJIB BERBENTUK BLOCK AGAR MAU SCROLL */
-    overflow-x: auto !important; /* MEMAKSA SCROLL KANAN-KIRI AKTIF */
+    display: block !important;
+    overflow-x: auto !important; /* Mengaktifkan scroll horizontal di layar kecil */
     margin-top: 15px !important;
     margin-bottom: 5px !important;
     border: 1px solid #22c55e !important;
     border-radius: 8px !important;
     background: #14281d !important;
-    -webkit-overflow-scrolling: touch !important; /* Pelancar scroll hp Android/iOS */
+    -webkit-overflow-scrolling: touch !important;
 }
 
 .santri-table {
     width: 100% !important;
     border-collapse: collapse !important;
-    min-width: 850px !important; /* Memaksa tabel menjaga jarak lebar agar tidak gepeng */
+    min-width: 850px !important; /* Menjaga struktur tabel agar tidak penyok */
     font-size: 0.9rem !important;
 }
 
@@ -375,18 +364,16 @@ body{
     padding: 12px !important;
     border-bottom: 1px solid rgba(34, 197, 150, 0.2) !important;
     color: #ffffff !important;
-    white-space: nowrap !important; /* Teks nama/denda lurus tidak patah kebawah */
+    white-space: nowrap !important;
 }
 
 .santri-table tbody tr:hover {
     background: rgba(255, 255, 255, 0.04) !important;
 }
 
-
 /* =========================================================================
-   6. BADGE STATUS, ACTION BUTTONS, & SCROLLBAR
+   7. BADGES, TABLE BUTTONS, & SCROLLBAR
    ========================================================================= */
-
 .btn-delete {
     background: rgba(239, 68, 68, 0.2) !important;
     border: 1px solid rgba(239, 68, 68, 0.5) !important;
@@ -401,14 +388,27 @@ body{
     color: #ffffff !important;
 }
 
-.btn-konfirmasi {
-    background: #22c55e !important;
-    color: #ffffff !important;
-    border: none !important;
+.btn-edit, .btn-save {
+    background: rgba(34, 197, 94, 0.2) !important;
+    border: 1px solid #22c55e !important;
+    color: #4ade80 !important;
     padding: 5px 10px !important;
     border-radius: 4px !important;
     cursor: pointer !important;
     font-size: 0.8rem !important;
+}
+.btn-edit:hover, .btn-save:hover {
+    background: #22c55e !important;
+    color: #ffffff !important;
+}
+
+.table-input {
+    background: #1e3a27 !important;
+    border: 1px solid #4ade80 !important;
+    color: #fff !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    width: 100% !important;
 }
 
 .status-badge {
@@ -426,7 +426,7 @@ body{
 .text-denda, .text-tunggakan { color: #f87171 !important; font-weight: bold; }
 .text-aman, .text-pas { color: #94a3b8 !important; }
 
-/* CUSTOM SCROLLBAR BAR TRACK */
+/* CUSTOM SCROLLBAR TRACK */
 .table-responsive::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -439,45 +439,38 @@ body{
     border-radius: 10px;
 }
 
-
 /* =========================================================================
-   7. RESPONSIVE MEDIA QUERIES (BREAKPOINTS)
+   8. MEDIA QUERIES SENSOR LAYAR (KHUSUS UNTUK HP / MOBILE)
    ========================================================================= */
+@media(max-width: 768px){
+  /* Setel tabel putra putri jadi 1 kolom berbaris ke bawah */
+  .santri-grid-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
 
-@media(max-width:768px){
-  .dashboard-wrap{ padding:12px; }
-  .header{ padding:16px; border-radius:24px; }
-  .header-top{ gap:14px; }
-  .header-brand{ width:100%; }
-  .header-profile{ width:100%; justify-content:space-between; }
+  .dashboard-wrap{ padding: 12px; }
+  .header{ padding: 16px; border-radius: 24px; }
+  .header-top{ gap: 14px; }
+  .header-brand{ width: 100%; }
+  .header-profile{ width: 100%; justify-content: space-between; }
   
   .nav-menu{
-    grid-template-columns: repeat(4,1fr);
-    gap:8px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
   }
   .nav-btn{
-    padding:12px 6px;
-    font-size:.72rem;
-    border-radius:14px;
-    gap:6px;
+    padding: 11px 4px;
+    font-size: .66rem; /* Ukuran teks menu navigasi mengecil pas di layar HP */
+    border-radius: 14px;
+    gap: 4px;
   }
-  .nav-icon{ font-size:.5rem; }
-  .brand-title{ font-size:1rem; }
-  .brand-sub{ font-size:.8rem; }
+  .brand-title{ font-size: 1rem; }
+  .brand-sub{ font-size: .8rem; }
 
-  /* Kotak Form di HP melar rapi */
   .card, .form-santri-box {
     padding: 15px !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
-}
-
-@media(max-width:480px){
-  .nav-btn{
-    font-size:.66rem;
-    padding:11px 4px;
-  }
-  .profile-avatar{ width:38px; height:38px; }
-  .logo-box{ width:62px; height:62px; }
 }
