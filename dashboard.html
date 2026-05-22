@@ -92,95 +92,120 @@
   </main>
 
 
+<section class="section active" id="section-santri">
 
-      <section class="section active" id="section-santri">
+  <div class="admin-only card form-santri-box">
+    <h3 class="form-title">Input Massal Data Santri Baru</h3>
+    <form id="form-tambah-santri" class="grid-form">
+      
+      <div class="form-group style-textarea">
+        <label for="santri-nama">Daftar Nama Santri (Satu Nama Per Baris)</label>
+        <textarea id="santri-nama" rows="3" placeholder="Contoh:&#10;Ahmad Fauzi&#10;Muhammad Ridwan&#10;Zainal Arifin" required></textarea>
+      </div>
 
-        <!-- =========================================================================
-     SECTION: DATA SANTRI
-     ========================================================================= -->
+      <div class="form-group">
+        <label for="input-kategori">Kategori:</label>
+        <select id="input-kategori" required>
+          <option value="" disabled selected>-- Pilih Kategori --</option>
+          <option value="Putra">Putra</option>
+          <option value="Putri">Putri</option>
+        </select>
+      </div>
 
-<!-- Form Tambah Santri (Khusus Admin - Disembunyikan otomatis via JS jika belum login) -->
-<div class="admin-only card form-santri-box">
-  <h3 class="form-title">Input Massal Data Santri Baru</h3>
-  <form id="form-tambah-santri" class="grid-form">
-    
-    <div class="form-group style-textarea">
-      <label for="santri-nama">Daftar Nama Santri (Satu Nama Per Baris)</label>
-      <textarea id="santri-nama" rows="3" placeholder="Contoh:&#10;Ahmad Fauzi&#10;Muhammad Ridwan&#10;Zainal Arifin" required></textarea>
-    </div>
+      <div class="form-group">
+        <label for="input-kelas">Kelas:</label>
+        <select id="input-kelas" required>
+          <option value="" disabled selected>-- Pilih Kelas --</option>
+          <option value="Ibtida 1">Ibtida 1</option>
+          <option value="Ibtida 2">Ibtida 2</option>
+          <option value="Ibtida 3">Ibtida 3</option>
+          <option value="Tsanawy 1">Tsanawy 1</option>
+          <option value="Tsanawy 2">Tsanawy 2</option>
+          <option value="Tsanawy 3">Tsanawy 3</option>
+          <option value="Ma'had Aly">Ma'had Aly (MA)</option>
+        </select>
+      </div>
 
-    <div class="form-group">
-      <label for="santri-gender">Kategori</label>
-      <select id="santri-gender" required>
-        <option value="Putra">Putra (Mukim)</option>
-        <option value="Putri">Putri (Mukim)</option>
+      <button type="submit" class="btn-submit">Simpan Semua Nama</button>
+    </form>
+  </div>
+
+  <div class="card" style="padding: 15px !important; margin-bottom: 20px !important;">
+    <div class="form-group" style="margin-bottom: 0;">
+      <label for="filter-kelas-santri" style="font-weight: 600; color: #a3e635;">Pilih / Filter Jenjang Kelas:</label>
+      <select id="filter-kelas-santri" style="width: 100%; padding: 10px; background: #1e3a27; color: white; border: 1px solid #22c55e; border-radius: 6px; cursor: pointer;">
+        <option value="SEMUA">-- Tampilkan Semua Kelas --</option>
+        <option value="Ibtida 1">Ibtida 1</option>
+        <option value="Ibtida 2">Ibtida 2</option>
+        <option value="Ibtida 3">Ibtida 3</option>
+        <option value="Tsanawy 1">Tsanawy 1</option>
+        <option value="Tsanawy 2">Tsanawy 2</option>
+        <option value="Tsanawy 3">Tsanawy 3</option>
+        <option value="Ma'had Aly">Ma'had Aly (MA)</option>
       </select>
     </div>
-
-    <button type="submit" class="btn-submit">Simpan Semua Nama</button>
-  </form>
-</div>
-
-<div class="santri-grid-container">
-
-  <div class="card santri-block block-putra">
-    <div class="block-header">
-      <div class="block-badge badge-putra">♂</div>
-      <div class="block-info">
-        <h4>Santri Putra</h4>
-        <p class="total-count"><span id="count-putra">0</span> Santri Mukim</p>
-      </div>
-    </div>
-    
-    <div class="table-responsive">
-      <table class="santri-table">
-        <thead>
-          <tr>
-            <th>Nama</th>
-            <th>Kelas</th>
-            <th>Alamat</th>
-            <th class="admin-only text-center">Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="list-santri-putra">
-          <tr>
-            <td colspan="4" class="text-center text-muted">Memuat data...</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
 
-  <div class="card santri-block block-putri">
-    <div class="block-header">
-      <div class="block-badge badge-putri">♀</div>
-      <div class="block-info">
-        <h4>Santri Putri</h4>
-        <p class="total-count"><span id="count-putri">0</span> Santri Mukim</p>
+  <div class="santri-grid-container">
+
+    <div class="card santri-block block-putra">
+      <div class="block-header">
+        <div class="block-badge badge-putra">♂</div>
+        <div class="block-info">
+          <h4>Santri Putra</h4>
+          <p class="total-count"><span id="count-putra">0</span> Santri Mukim</p>
+        </div>
+      </div>
+      
+      <div class="table-responsive">
+        <table class="santri-table">
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Kelas</th>
+              <th>Alamat</th>
+              <th class="admin-only text-center">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="list-santri-putra">
+            <tr>
+              <td colspan="4" class="text-center text-muted">Memuat data...</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
-    <div class="table-responsive">
-      <table class="santri-table">
-        <thead>
-          <tr>
-            <th>Nama</th>
-            <th>Kelas</th>
-            <th>Alamat</th>
-            <th class="admin-only text-center">Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="list-santri-putri">
-          <tr>
-            <td colspan="4" class="text-center text-muted">Memuat data...</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+    <div class="card santri-block block-putri">
+      <div class="block-header">
+        <div class="block-badge badge-putri">♀</div>
+        <div class="block-info">
+          <h4>Santri Putri</h4>
+          <p class="total-count"><span id="count-putri">0</span> Santri Mukim</p>
+        </div>
+      </div>
 
-</div>
-      </section>
+      <div class="table-responsive">
+        <table class="santri-table">
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Kelas</th>
+              <th>Alamat</th>
+              <th class="admin-only text-center">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="list-santri-putri">
+            <tr>
+              <td colspan="4" class="text-center text-muted">Memuat data...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
         <!-- isi nanti -->
     <section class="section" id="section-keamanan">
   
