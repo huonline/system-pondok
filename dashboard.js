@@ -51,7 +51,6 @@ if (filterKelasSantri) {
 }
 
 function muatDataSantri() {
-  // Mengurutkan data santri secara alfabetis berdasarkan nama
   const q = query(collection(db, "santri"), orderBy("nama", "asc"));
 
   onSnapshot(q, (snapshot) => {
@@ -60,21 +59,30 @@ function muatDataSantri() {
     
     let totalPutra = 0;
     let totalPutri = 0;
+    
+    // Tambahkan 2 variabel ini untuk menghitung nomor urut dari angka 1
+    let noUrutPutra = 1;
+    let noUrutPutri = 1;
+
     const kelasTerpilih = filterKelasSantri ? filterKelasSantri.value : "SEMUA";
 
     snapshot.forEach((docSnap) => {
       const santri = docSnap.data();
       const id = docSnap.id;
 
-      // Logika Inti Pengetatan Filter Jenjang Kelas
       if (kelasTerpilih !== "SEMUA" && santri.kelas !== kelasTerpilih) {
-        return; // Lewati data jika tidak cocok dengan filter kelas yang dipilih
+        return; 
       }
 
-      // Setiap baris diberi ID unik (row-id) untuk kebutuhan fitur inline edit
+      // Tentukan nomor urut mana yang dipakai berdasarkan gender santri
+      const nomorSekarang = santri.gender === "Putra" ? noUrutPutra : noUrutPutri;
+
+      // Selipkan variabel ${nomorSekarang} di depan nama santri
       const rowHTML = `
         <tr id="row-${id}">
-          <td class="cell-nama">${santri.nama}</td>
+          <td class="cell-nama">
+            <span class="nomer-urut">${nomorSekarang}.</span> ${santri.nama}
+          </td>
           <td class="cell-kelas">${santri.kelas || "-"}</td>
           <td class="cell-alamat">${santri.alamat || "-"}</td>
           <td class="admin-only text-center" style="display: ${isAdmin ? 'table-cell' : 'none'} !important;">
@@ -86,21 +94,20 @@ function muatDataSantri() {
         </tr>
       `;
 
-      // Kelompokkan data ke tabel yang pas berdasarkan kategori gender
       if (santri.gender === "Putra") {
         tbodyPutra.insertAdjacentHTML("beforeend", rowHTML);
         totalPutra++;
+        noUrutPutra++; // Naikkan nomor urut putra (+1) setelah berhasil merender 1 nama
       } else if (santri.gender === "Putri") {
         tbodyPutri.insertAdjacentHTML("beforeend", rowHTML);
         totalPutri++;
+        noUrutPutri++; // Naikkan nomor urut putri (+1) setelah berhasil merender 1 nama
       }
     });
 
-    // Perbarui counter angka di atas tabel
     if(countPutra) countPutra.innerText = totalPutra;
     if(countPutri) countPutri.innerText = totalPutri;
 
-    // Tampilan jika data hasil filter kosong melompong
     if (totalPutra === 0) {
       tbodyPutra.innerHTML = `<tr><td colspan="4" class="text-center text-muted">Tidak ada data santri putra di kelas ini.</td></tr>`;
     }
