@@ -5,9 +5,11 @@ import {
   deleteDoc, 
   updateDoc,
   doc, 
-  onSnapshot 
+  onSnapshot,
+  query,
+  orderBy
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 // =========================================================================
 // 1. CEK STATUS LOGIN (ADMIN VS PENGUNJUNG)
@@ -35,61 +37,84 @@ onAuthStateChanged(auth, (user) => {
 });
 
 // =========================================================================
-// 2. READ DATA: AMBIL DATA SANTRI REAL-TIME
+// 2. READ DATA: AMBIL DATA SANTRI REAL-TIME & FILTER PER KELAS
 // =========================================================================
 const tbodyPutra = document.getElementById("list-santri-putra");
 const tbodyPutri = document.getElementById("list-santri-putri");
 const countPutra = document.getElementById("count-putra");
 const countPutri = document.getElementById("count-putri");
+const filterKelasSantri = document.getElementById("filter-kelas-santri");
 
-onSnapshot(collection(db, "santri"), (snapshot) => {
-  tbodyPutra.innerHTML = "";
-  tbodyPutri.innerHTML = "";
-  
-  let totalPutra = 0;
-  let totalPutri = 0;
+// Jalankan ulang fungsi penyaringan setiap kali filter dropdown diubah
+if (filterKelasSantri) {
+  filterKelasSantri.addEventListener("change", muatDataSantri);
+}
 
-  snapshot.forEach((docSnap) => {
-    const santri = docSnap.data();
-    const id = docSnap.id;
+function muatDataSantri() {
+  // Mengurutkan data santri secara alfabetis berdasarkan nama
+  const q = query(collection(db, "santri"), orderBy("nama", "asc"));
 
-    // Setiap baris diberi ID unik (row-id) agar bisa dimanipulasi saat tombol edit diklik
-    const rowHTML = `
-      <tr id="row-${id}">
-        <td class="cell-nama">${santri.nama}</td>
-        <td class="cell-asrama">${santri.asrama || "-"}</td>
-        <td class="cell-alamat">${santri.alamat || "-"}</td>
-        <td class="admin-only text-center" style="display: ${isAdmin ? 'table-cell' : 'none'} !important;">
-          <div class="action-actions-wrap">
-            <button class="btn-edit" data-id="${id}">Edit</button>
-            <button class="btn-delete" data-id="${id}">Hapus</button>
-          </div>
-        </td>
-      </tr>
-    `;
+  onSnapshot(q, (snapshot) => {
+    tbodyPutra.innerHTML = "";
+    tbodyPutri.innerHTML = "";
+    
+    let totalPutra = 0;
+    let totalPutri = 0;
+    const kelasTerpilih = filterKelasSantri ? filterKelasSantri.value : "SEMUA";
 
-    if (santri.gender === "Putra") {
-      tbodyPutra.insertAdjacentHTML("beforeend", rowHTML);
-      totalPutra++;
-    } else if (santri.gender === "Putri") {
-      tbodyPutri.insertAdjacentHTML("beforeend", rowHTML);
-      totalPutri++;
+    snapshot.forEach((docSnap) => {
+      const santri = docSnap.data();
+      const id = docSnap.id;
+
+      // Logika Inti Pengetatan Filter Jenjang Kelas
+      if (kelasTerpilih !== "SEMUA" && santri.kelas !== kelasTerpilih) {
+        return; // Lewati data jika tidak cocok dengan filter kelas yang dipilih
+      }
+
+      // Setiap baris diberi ID unik (row-id) untuk kebutuhan fitur inline edit
+      const rowHTML = `
+        <tr id="row-${id}">
+          <td class="cell-nama">${santri.nama}</td>
+          <td class="cell-kelas">${santri.kelas || "-"}</td>
+          <td class="cell-alamat">${santri.alamat || "-"}</td>
+          <td class="admin-only text-center" style="display: ${isAdmin ? 'table-cell' : 'none'} !important;">
+            <div class="action-actions-wrap">
+              <button class="btn-edit" data-id="${id}">Edit</button>
+              <button class="btn-delete" data-id="${id}">Hapus</button>
+            </div>
+          </td>
+        </tr>
+      `;
+
+      // Kelompokkan data ke tabel yang pas berdasarkan kategori gender
+      if (santri.gender === "Putra") {
+        tbodyPutra.insertAdjacentHTML("beforeend", rowHTML);
+        totalPutra++;
+      } else if (santri.gender === "Putri") {
+        tbodyPutri.insertAdjacentHTML("beforeend", rowHTML);
+        totalPutri++;
+      }
+    });
+
+    // Perbarui counter angka di atas tabel
+    if(countPutra) countPutra.innerText = totalPutra;
+    if(countPutri) countPutri.innerText = totalPutri;
+
+    // Tampilan jika data hasil filter kosong melompong
+    if (totalPutra === 0) {
+      tbodyPutra.innerHTML = `<tr><td colspan="4" class="text-center text-muted">Tidak ada data santri putra di kelas ini.</td></tr>`;
+    }
+    if (totalPutri === 0) {
+      tbodyPutri.innerHTML = `<tr><td colspan="4" class="text-center text-muted">Tidak ada data santri putri di kelas ini.</td></tr>`;
     }
   });
+}
 
-  if(countPutra) countPutra.innerText = totalPutra;
-  if(countPutri) countPutri.innerText = totalPutri;
-
-  if (totalPutra === 0) {
-    tbodyPutra.innerHTML = `<tr><td colspan="4" class="text-center text-muted">Belum ada data santri putra.</td></tr>`;
-  }
-  if (totalPutri === 0) {
-    tbodyPutri.innerHTML = `<tr><td colspan="4" class="text-center text-muted">Belum ada data santri putri.</td></tr>`;
-  }
-});
+// Jalankan fungsi muat data pertama kali saat halaman siap
+muatDataSantri();
 
 // =========================================================================
-// 3. WRITE DATA: INPUT NAMA MASSAL (ASRAMA & ALAMAT DEFAULT SEBAGAI SEBELUMNYA "-")
+// 3. WRITE DATA: INPUT NAMA MASSAL PER KELAS & KATEGORI
 // =========================================================================
 const formTambah = document.getElementById("form-tambah-santri");
 
@@ -98,7 +123,8 @@ if (formTambah) {
     e.preventDefault();
 
     const rawNames = document.getElementById("santri-nama").value;
-    const gender = document.getElementById("santri-gender").value;
+    const gender = document.getElementById("input-kategori").value; // Menyesuaikan ID Baru HTML
+    const kelas = document.getElementById("input-kelas").value;   // Menyesuaikan ID Baru HTML
 
     const namaList = rawNames
       .split("\n")
@@ -112,15 +138,15 @@ if (formTambah) {
         return addDoc(collection(db, "santri"), {
           nama: nama,
           gender: gender,
-          asrama: "-", // Nilai bawaan, nanti diedit di tabel
-          alamat: "-", // Nilai bawaan, nanti diedit di tabel
+          kelas: kelas,   // Menggantikan field asrama menjadi kelas secara permanen
+          alamat: "-",    // Nilai bawaan alamat awal
           createdAt: new Date().toISOString()
         });
       });
 
       await Promise.all(uploadPromises);
       formTambah.reset();
-      alert(`Berhasil memasukkan ${namaList.length} nama santri! Silakan lengkapi asrama dan alamatnya langsung di tabel bawah.`);
+      alert(`Berhasil memasukkan ${namaList.length} nama santri ke kelas ${kelas}!`);
     } catch (error) {
       console.error("Gagal menyimpan data massal: ", error);
       alert("Terjadi kesalahan saat menyimpan data.");
@@ -129,7 +155,7 @@ if (formTambah) {
 }
 
 // =========================================================================
-// 4. INLINE EDIT & UPDATE DATA (EDIT LANGSUNG DI TABEL)
+// 4. INLINE EDIT & UPDATE DATA (EDIT LANGSUNG DI DALAM TABEL)
 // =========================================================================
 document.body.addEventListener("click", async (e) => {
   // AKSI 1: KETIKA TOMBOL EDIT DIKLIK
@@ -137,15 +163,15 @@ document.body.addEventListener("click", async (e) => {
     const id = e.target.getAttribute("data-id");
     const tr = document.getElementById(`row-${id}`);
     
-    // Ambil teks asli yang ada di tabel saat ini
-    const currentAsrama = tr.querySelector(".cell-asrama").innerText;
+    // Ambil nilai teks tertulis saat ini
+    const currentKelas = tr.querySelector(".cell-kelas").innerText;
     const currentAlamat = tr.querySelector(".cell-alamat").innerText;
 
-    // Ubah text td menjadi kotak input ketik
-    tr.querySelector(".cell-asrama").innerHTML = `<input type="text" class="table-input input-asrama" value="${currentAsrama === '-' ? '' : currentAsrama}" placeholder="Kelas...">`;
+    // Ubah kolom tabel menjadi bentuk input fields untuk diketik langsung
+    tr.querySelector(".cell-kelas").innerHTML = `<input type="text" class="table-input input-kelas" value="${currentKelas === '-' ? '' : currentKelas}" placeholder="Kelas...">`;
     tr.querySelector(".cell-alamat").innerHTML = `<input type="text" class="table-input input-alamat" value="${currentAlamat === '-' ? '' : currentAlamat}" placeholder="Kota...">`;
 
-    // Ubah tombol "Edit" menjadi tombol "Simpan"
+    // Ganti tombol "Edit" menjadi tombol "Simpan"
     const actionWrap = tr.querySelector(".action-actions-wrap");
     actionWrap.innerHTML = `
       <button class="btn-save" data-id="${id}">Simpan</button>
@@ -158,21 +184,18 @@ document.body.addEventListener("click", async (e) => {
     const id = e.target.getAttribute("data-id");
     const tr = document.getElementById(`row-${id}`);
 
-    // Ambil nilai baru dari kotak input
-    const newAsrama = tr.querySelector(".input-asrama").value.trim() || "-";
+    // Ambil data modifikasi terbaru dari input data tabel
+    const newKelas = tr.querySelector(".input-kelas").value.trim() || "-";
     const newAlamat = tr.querySelector(".input-alamat").value.trim() || "-";
 
     try {
-      // Update langsung ke dokumen Firestore berdasarkan ID santri tersebut
       const docRef = doc(db, "santri", id);
       await updateDoc(docRef, {
-        asrama: newAsrama,
+        kelas: newKelas,
         alamat: newAlamat
       });
 
-      alert("Data berhasil diperbarui!");
-      // Catatan: Tampilan tabel akan otomatis berubah kembali menjadi teks biasa 
-      // karena fungsi onSnapshot (Read Data) di atas mendeteksi perubahan data secara real-time.
+      alert("Data santri berhasil diperbarui!");
     } catch (error) {
       console.error("Gagal memperbarui data: ", error);
       alert("Gagal memperbarui data.");
@@ -203,45 +226,34 @@ const sections = document.querySelectorAll(".section");
 
 navButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
-    // 1. Ambil target id section dari atribut data-section
     const targetSectionId = `section-${btn.getAttribute("data-section")}`;
     const targetSection = document.getElementById(targetSectionId);
 
     if (targetSection) {
-      // 2. Hilangkan class 'active' dari semua tombol menu
       navButtons.forEach((b) => b.classList.remove("active"));
-      
-      // 3. Hilangkan class 'active' dari semua section konten
       sections.forEach((s) => s.classList.remove("active"));
 
-      // 4. Tambahkan kembali class 'active' ke tombol yang diklik dan section pasangannya
       btn.classList.add("active");
       targetSection.classList.add("active");
     }
   });
 });
 
-
 // =========================================================================
-// FITUR LOG OUT ADMIN
+// 6. FITUR LOG OUT ADMIN VIA AVATAR PROFILE
 // =========================================================================
-import { signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-// Cari elemen lingkaran avatar profil di kanan atas
 const tombolLogOut = document.querySelector(".profile-avatar");
 
 if (tombolLogOut) {
-  // Ubah kursor mouse menjadi telunjuk saat mengarah ke avatar biar ketahuan bisa diklik
   tombolLogOut.style.cursor = "pointer";
   tombolLogOut.setAttribute("title", "Klik untuk Keluar dari Admin");
 
-  // Aksi ketika lingkaran profil diklik
   tombolLogOut.addEventListener("click", () => {
     if (confirm("Apakah Anda yakin ingin keluar dari akun Admin?")) {
       signOut(auth)
         .then(() => {
           alert("Anda telah keluar. Halaman akan dimuat ulang ke mode Umum.");
-          window.location.reload(); // Reload halaman untuk membersihkan sisa data admin
+          window.location.reload();
         })
         .catch((error) => {
           console.error("Gagal Log Out: ", error);
