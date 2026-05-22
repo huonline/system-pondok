@@ -382,14 +382,11 @@ body{
     text-align: left !important;
   }
 
-  /* Desain khusus teks NAMA di dalam kartu */
+ /* Tampilan NAMA & NOMOR URUT di HP jadi PUTIH */
   .santri-table td.cell-nama {
-    font-weight: bold !important;
-    font-size: 1rem !important;
-    color: #a3e635 !important; /* Warna font stabil/terang */
-    border-bottom: 1px dashed rgba(74, 222, 128, 0.3) !important;
-    padding-bottom: 6px !important;
-    margin-bottom: 4px !important;
+    color: #ffffff !important; /* Warna NAMA jadi PUTIH */
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.2) !important; /* Warna garis pembatas disesuaikan */
+   
   }
 
   /* Tambahkan teks penanda otomatis sebelum data Kelas & Alamat */
@@ -413,5 +410,11 @@ body{
     margin-top: 8px !important;
     padding-top: 8px !important;
     border-top: 1px dashed rgba(74, 222, 128, 0.3) !important;
+  }
+}
+
+.nomer-urut {
+    color: #ffffff !important; /* Warna NOMOR URUT jadi PUTIH */
+  
   }
 }
